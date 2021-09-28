@@ -1,7 +1,12 @@
-import '../styles/globals.css'
 import type { AppProps } from 'next/app'
 
+import { Chakra } from '../components/Chakra'
+
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return (
+    <Chakra>
+      <Component {...pageProps} />
+    </Chakra>
+  )
 }
 export default MyApp
