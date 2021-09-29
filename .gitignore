@@ -1,0 +1,58 @@
+**/node_modules
+**/dist
+storybook-static
+node_modules/
+
+# No npm allowed
+package-lock.json
+
+# IDE
+.idea
+
+# next.js
+.next/
+
+# build files
+build
+autogen
+__generated__
+dist
+out/
+
+# Coverage directory used by testing tools
+**/coverage
+**/jest-coverage
+**/reports
+
+# misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+lerna-debug.log*
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+!/yarn.lock
+.yarn/*
+!.yarn/releases
+!.yarn/plugins
+.pnp
+.pnp.*
+
+# vim
+*.swp
+
+## Hardhat files ##
+packages/hardhat/*.txt
+packages/hardhat/cache
+packages/hardhat/artifacts
+packages/hardhat/typechain
+packages/hardhat/deployments/localhost
+packages/hardhat/deployments/hardhat
+
+packages/frontend/artifacts/build-info
+packages/frontend/artifacts/hardhat

@@ -1,0 +1,21 @@
+{
+  "name": "sv-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "dev": "yarn workspace sv-frontend dev",
+    "build": "yarn workspace sv-frontend build",
+    "start": "yarn workspace sv-frontend start",
+    "lint": "yarn workspace sv-frontend lint",
+    "chain": "yarn workspace sv-hardhat chain",
+    "compile": "yarn workspace sv-hardhat compile",
+    "deploy": "yarn workspace sv-hardhat deploy",
+    "test": "yarn workspace sv-hardhat test"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
