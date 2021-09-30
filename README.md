@@ -21,6 +21,7 @@ Frontend
 yarn dev
 yarn start
 yarn build
+yarn export
 ```
 
 HardHat
