@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import { ColorModeScript } from '@chakra-ui/react'
 import NextDocument, {
   DocumentContext,
@@ -12,7 +13,7 @@ class Document extends NextDocument {
     return NextDocument.getInitialProps(ctx)
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <Html>
         <Head />

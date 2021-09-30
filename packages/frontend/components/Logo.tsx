@@ -1,10 +1,8 @@
-import { Box, Text } from '@chakra-ui/react'
+import { Box, Image } from '@chakra-ui/react'
 import React from 'react'
 
-export const Logo = () => (
+export const Logo = (): JSX.Element => (
   <Box>
-    <Text fontSize="lg" fontWeight="bold">
-      Logo
-    </Text>
+    <Image src="./assets/logo.png" w="100%" h="auto" maxW="162px" />
   </Box>
 )

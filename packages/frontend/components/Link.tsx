@@ -13,7 +13,7 @@ export const Link: React.FC<Props> = ({
   children,
   as,
   ...props
-}) => {
+}): JSX.Element => {
   if (isExternal && typeof href === 'string') {
     return (
       <ChakraLink isExternal href={href} {...props}>
