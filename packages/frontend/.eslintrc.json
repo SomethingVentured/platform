@@ -1,3 +1,88 @@
 {
-  "extends": "next/core-web-vitals"
+  "root": true,
+  "extends": [
+    "plugin:@next/next/recommended",
+    "airbnb",
+    "airbnb-typescript",
+    "airbnb/hooks",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint", "simple-import-sort"],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/extensions": [".js", ".jsx", ".ts", ".tsx"],
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.json"
+      }
+    }
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "project": "./tsconfig.json"
+  },
+  "rules": {
+    "@typescript-eslint/explicit-function-return-type": "off",
+
+    // Omit semicolons
+    "semi": ["error", "never"],
+
+    // Single quotes pls
+    "quotes": [2, "single", { "avoidEscape": true }],
+
+    // Since we do not use prop-types
+    "react/prop-types": "off",
+    "react/require-default-props": "off",
+
+    // Prefer non-default exports
+    "import/no-default-export": "error",
+    "import/prefer-default-export": "off",
+
+    // Auto-sort imports
+    "sort-imports": "off",
+    "import/order": "off",
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+
+    // Using a type system makes it safe enough to spread props
+    "react/jsx-props-no-spreading": "off",
+
+    // we want to be able to use functions before definition
+    "@typescript-eslint/no-use-before-define": "off",
+    
+    "@typescript-eslint/ban-ts-comment": [
+      "error",
+      {
+        "ts-expect-error": "allow-with-description",
+        "minimumDescriptionLength": 5
+      }
+    ]
+  },
+  "overrides": [
+    {
+      // assuming Next.js application
+      "files": "**/pages/**/*.{ts,tsx}",
+      "rules": {
+        "react/react-in-jsx-scope": "off", // react is a global in this folder
+        "import/no-default-export": "off", // pages have to have a default export
+        "import/prefer-default-export": "error",
+        "@typescript-eslint/explicit-module-boundary-types": [
+          // So we can infer prop types
+          "warn",
+          { "allowedNames": ["getStaticProps"] }
+        ]
+      }
+    },
+    {
+      "files": ["./graphql-client/*.ts", "./lib/hooks.ts"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "off"
+      }
+    }
+  ]
 }
