@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "yarn workspace sv-frontend dev",
     "build": "yarn workspace sv-frontend build",
+    "export": "yarn workspace sv-frontend export",
     "start": "yarn workspace sv-frontend start",
     "lint": "yarn workspace sv-frontend lint",
     "chain": "yarn workspace sv-hardhat chain",
