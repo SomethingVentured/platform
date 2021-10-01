@@ -24,8 +24,7 @@ const SocialButton = ({ children, label, href }: { children: ReactNode; label: s
   </chakra.button>
 )
 
-export function Footer(): JSX.Element {
-  return (
+export const Footer: React.FC = () => (
     <Box bg={useColorModeValue('gray.50', 'gray.900')} color={useColorModeValue('gray.700', 'gray.200')}>
       <Container
         as={Stack}
@@ -51,4 +50,4 @@ export function Footer(): JSX.Element {
       </Container>
     </Box>
   )
-}
+

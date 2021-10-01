@@ -12,8 +12,7 @@ type BenefitsType = {
   type: string
 }
 
-export function Benefits({type}: BenefitsType): JSX.Element {
-  return (
+export const Benefits: React.FC<BenefitsType> = ({type}) => (
       <Container maxW="5xl" zIndex={10} position="relative">
         <Stack direction={{ base: 'column', lg: 'row' }}>
           <Stack
@@ -61,8 +60,8 @@ export function Benefits({type}: BenefitsType): JSX.Element {
           </Stack>
         </Stack>
       </Container>
-  )
-}
+)
+
 
 const StatsText = ({ children }: { children: ReactNode }) => (
   <Text as="span" fontWeight={700} color="green.500">

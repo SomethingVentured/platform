@@ -85,7 +85,7 @@ const headerStyles = {
   zIndex: 2000
 }
 
-export const Navbar = (): JSX.Element => {
+export const Navbar: React.FC = () => {
   const { isOpen, onToggle } = useDisclosure()
   return (
     <Box className="header" sx={headerStyles} backgroundColor={isOpen ? 'white' : 'rgba(255,255,255, 0.8)'}>

@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-page-custom-font */
 import { Container } from '@chakra-ui/react'
 import Head from 'next/head'
 import React, { ReactNode } from 'react'
@@ -8,9 +9,9 @@ type Props = {
   children?: ReactNode
 }
 
-export const Layout = ({
+export const Layout: React.FC<Props> = ({
   children
-}: Props): JSX.Element => (
+}): JSX.Element => (
   <>
     <Head>
       <title>SomethingVentured</title>

@@ -10,27 +10,27 @@ import {
   Text,
   useColorModeValue,
 } from '@chakra-ui/react'
-import { keyframes } from '@emotion/react'
+// import { keyframes } from '@emotion/react'
 import React from 'react'
 import { FiChevronDown } from 'react-icons/fi'
 
-const bounce = keyframes`
-  from, 20%, 53%, 80%, to {
-    transform: translate3d(0,0,0);
-  }
+// const bounce = keyframes`
+//   from, 20%, 53%, 80%, to {
+//     transform: translate3d(0,0,0);
+//   }
 
-  40%, 43% {
-    transform: translate3d(0, 20px, 0);
-  }
+//   40%, 43% {
+//     transform: translate3d(0, 20px, 0);
+//   }
 
-  70% {
-    transform: translate3d(0, 15px, 0);
-  }
+//   70% {
+//     transform: translate3d(0, 15px, 0);
+//   }
 
-  90% {
-    transform: translate3d(0,10px,0);
-  }
-`
+//   90% {
+//     transform: translate3d(0,10px,0);
+//   }
+// `
 // type ScrollObserverType = {
 //   element: string
 // }
@@ -48,8 +48,7 @@ const bounce = keyframes`
 
 // Tell the observer which elements to track
 
-export function Hero(): JSX.Element {
-  return (
+export const Hero: React.FC = () => (
     <>
       <Container className="hero" maxW={{base: '100%', xl: '3xl'}}>
         <Stack as={Box} textAlign="center" spacing={{ base: 8, md: 10 }} py={{ base: 0, md: 36 }}>
@@ -163,7 +162,6 @@ export function Hero(): JSX.Element {
       </Container>
     </>
   )
-}
 
 const Arrow = createIcon({
   displayName: 'Arrow',

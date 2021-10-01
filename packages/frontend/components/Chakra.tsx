@@ -13,7 +13,7 @@ interface ChakraProps {
   children: ReactNode
 }
 
-export const Chakra = ({ cookies, theme, children }: ChakraProps): JSX.Element => (
+export const Chakra: React.FC<ChakraProps> = ({ cookies, theme, children }): JSX.Element => (
   <ChakraProvider
     colorModeManager={
       cookies ? cookieStorageManager(cookies) : localStorageManager
