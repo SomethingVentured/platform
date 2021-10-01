@@ -24,7 +24,7 @@
     "esModuleInterop": true,
     "paths": {
       "@/*": [
-        "./*"
+        "./packages/frontend/*"
       ]
     },
     "resolveJsonModule": true,
