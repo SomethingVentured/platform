@@ -11,7 +11,7 @@ type ProjectProps = {
   description: string
 }
 
-export const Card = ({ imageUrl, imageAlt, title, description }: ProjectProps): JSX.Element => (
+export const Card: React.FC<ProjectProps> = ({ imageUrl, imageAlt, title, description }) => (
   <Box maxW="sm" borderWidth="1px" borderRadius="lg" overflow="hidden">
     <Image src={imageUrl} alt={imageAlt} />
 

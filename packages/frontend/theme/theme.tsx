@@ -11,11 +11,15 @@ export const svTheme = extendTheme({
         maxWidth: '100vw',
         overflowX: 'hidden',
         position: 'relative',
+        scrollBehavior: 'smooth',
         '.web3modal-modal-container': {
           zIndex: 2000,
         },
       },
       'h1, h2, h3, h4': {},
+      h3: {
+        fontSize: {base: '16px', md: '20px'}
+      },
       // styles for the `a`
       a: {
         color: 'green.500',
@@ -36,23 +40,39 @@ export const svTheme = extendTheme({
       // Styles for the size variations
       sizes: {
         xl: {
-          mt: '50px',
+          mt: '10px',
           mb: 3,
         },
         '2xl': {
-          mt: '50px',
+          color: 'green.700',
+          mt: '25px',
           mb: 4,
         },
       },
       // Styles for the visual style variations
       variants: {
-        brand: {
-          fontFamily: 'Righteous',
+        secondary: {
+          fontFamily: 'Amatic SC',
+          fontWeight: '400'
         },
       },
       // The default `size` or `variant` values
       defaultProps: {},
     },
+    Button: {
+      variants: {
+        cta: {
+          color: 'green.600',
+          fontFamily: 'Amatic SC',
+          fontSize: {base: '40px', xl: '60px'},
+          fontWeight: '400',
+          transition: 'color 0.2s ease',
+          _hover: {
+            color: 'yellow.700'
+          }
+        }
+      }
+    }
     // Button: {
     //   baseStyle: {
     //     backgroundColor: "white",

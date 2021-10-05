@@ -1,3 +1,4 @@
+export { Benefits } from './Benefits'
 export { Chakra } from './Chakra'
 export { Footer } from './Footer'
 export { Hero } from './Hero'

@@ -24,8 +24,7 @@ const SocialButton = ({ children, label, href }: { children: ReactNode; label: s
   </chakra.button>
 )
 
-export function Footer(): JSX.Element {
-  return (
+export const Footer: React.FC = () => (
     <Box bg={useColorModeValue('gray.50', 'gray.900')} color={useColorModeValue('gray.700', 'gray.200')}>
       <Container
         as={Stack}
@@ -36,7 +35,7 @@ export function Footer(): JSX.Element {
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}
       >
-        <Text>© 2020 Chakra Templates. All rights reserved</Text>
+        <Text>© 2021 SomethingVentured</Text>
         <Stack direction="row" spacing={6}>
           <SocialButton label="Twitter" href="#">
             <FaTwitter />
@@ -51,4 +50,4 @@ export function Footer(): JSX.Element {
       </Container>
     </Box>
   )
-}
+

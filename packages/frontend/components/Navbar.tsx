@@ -74,11 +74,22 @@ const NAV_ITEMS: Array<NavItem> = [
   // },
 ]
 
-export const Navbar = (): JSX.Element => {
+const headerStyles = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: ['100%', '100vw'],
+  backdropFilter: 'blur(7px)',
+  boxShadow: '0 0 8px rgba(0,0,0,0.4)',
+  transition: 'all 0.2s ease',
+  zIndex: 2000
+}
+
+export const Navbar: React.FC = () => {
   const { isOpen, onToggle } = useDisclosure()
   return (
-    <Box>
-      <Flex align="center" justifyContent="space-between" p={8} backgroundColor="white">
+    <Box className="header" sx={headerStyles} backgroundColor={isOpen ? 'white' : 'rgba(255,255,255, 0.8)'}>
+      <Flex align="center" justifyContent="space-between" py={2} px={8}>
         <Flex flex={{ base: 1, md: 'auto' }} ml={{ base: -2 }} display={{ base: 'flex', md: 'none' }}>
           <IconButton
             variant="ghost"
@@ -88,20 +99,21 @@ export const Navbar = (): JSX.Element => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} align="center">
-          <Image src="/assets/logo.png" />
-
+          <Link href="/">
+            <Image src="/assets/logo.png" maxW="100px"/>
+          </Link>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
         </Flex>
 
         <Stack flex={{ base: 1, md: 0 }} justify="flex-end" direction="row" spacing={6}>
-          <Button as="a" fontSize="sm" fontWeight={400} variant="link" href="#">
+          <Button as="a" fontSize="xs" fontWeight={400} variant="link" href="#">
             Sign In
           </Button>
           <Button
             display={{ base: 'none', md: 'inline-flex' }}
-            fontSize="sm"
+            fontSize="xs"
             fontWeight={600}
             color="white"
             bg="green.700"
@@ -196,7 +208,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => (
 )
 
 const MobileNav = () => (
-  <Stack bg={useColorModeValue('white', 'gray.800')} p={4} display={{ md: 'none' }}>
+  <Stack bg={useColorModeValue('white', 'gray.800')} p={4} minH="100vh" display={{ md: 'none' }}>
     {NAV_ITEMS.map((navItem) => (
       <MobileNavItem key={navItem.label} {...navItem} />
     ))}

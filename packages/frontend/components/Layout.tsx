@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-page-custom-font */
 import { Container } from '@chakra-ui/react'
 import Head from 'next/head'
 import React, { ReactNode } from 'react'
@@ -8,9 +9,9 @@ type Props = {
   children?: ReactNode
 }
 
-export const Layout = ({
+export const Layout: React.FC<Props> = ({
   children
-}: Props): JSX.Element => (
+}): JSX.Element => (
   <>
     <Head>
       <title>SomethingVentured</title>
@@ -19,10 +20,10 @@ export const Layout = ({
       <link rel="icon" href="/favicon.ico" />
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
-      <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Ubuntu:wght@300;400&display=swap" rel="stylesheet" />
+      <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Ubuntu:wght@300;400&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet" />
     </Head>
     <Navbar />
-    <Container maxWidth="1200px" pb={20}>
+    <Container className="wrapper" width={{base: '100%', lg: '100vw'}} maxWidth={{base: 'unset', xl: '1200px'}} pb={20}>
       {children}
     </Container>
     <Footer />
