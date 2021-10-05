@@ -33,11 +33,14 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "./next-env.d.ts"
+    "./next-env.d.ts", 
+    "components/web3/Balance.jsx", 
+    "components/web3/Address.jsx", 
+    "components/web3/Account.jsx"  
   ],
   "exclude": [
     "out",
     ".next",
-    "node_modules"
+    "node_modules",
   ]
 }
