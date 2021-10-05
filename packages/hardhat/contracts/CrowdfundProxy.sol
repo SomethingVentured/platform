@@ -9,23 +9,9 @@ interface ICrowdfundFactory {
     function mediaAddress() external returns (address);
 
     function logic() external returns (address);
-
-    // ERC20 data.
-    function parameters()
-        external
-        returns (
-            address payable[] calldata addresses,
-            uint256 [] calldata fundingParams,
-            bytes32 poolId
-        );
-
-    function getParameters()
-        external
-        returns (
-            address payable[] calldata addresses,
-            uint256 [] calldata fundingParams,
-            bytes32 poolId
-        );
+    function getAddresses() external view returns(address payable[] memory);
+    function getFundingParams() external view returns(uint256[] memory);
+    function getPoolId() external view returns(bytes32);
 }
 
 /**
@@ -36,7 +22,9 @@ contract CrowdfundProxy is CrowdfundStorage {
     constructor() {
         logic = ICrowdfundFactory(msg.sender).logic();
         // Crowdfund-specific data.
-        (addresses, fundingParams, poolId) = ICrowdfundFactory(msg.sender).getParameters();
+        addresses = ICrowdfundFactory(msg.sender).getAddresses();
+        fundingParams = ICrowdfundFactory(msg.sender).getFundingParams();
+        poolId = ICrowdfundFactory(msg.sender).getPoolId();
         // Initialize mutable storage.
         status = Status.FUNDING;
     }

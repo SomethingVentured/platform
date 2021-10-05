@@ -12,6 +12,45 @@ import type {
 const _abi = [
   {
     inputs: [],
+    name: "getAddresses",
+    outputs: [
+      {
+        internalType: "address payable[]",
+        name: "",
+        type: "address[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getFundingParams",
+    outputs: [
+      {
+        internalType: "uint256[]",
+        name: "",
+        type: "uint256[]",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "getPoolId",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
+    inputs: [],
     name: "logic",
     outputs: [
       {
@@ -31,29 +70,6 @@ const _abi = [
         internalType: "address",
         name: "",
         type: "address",
-      },
-    ],
-    stateMutability: "nonpayable",
-    type: "function",
-  },
-  {
-    inputs: [],
-    name: "parameters",
-    outputs: [
-      {
-        internalType: "address payable[]",
-        name: "addresses",
-        type: "address[]",
-      },
-      {
-        internalType: "uint256[]",
-        name: "fundingParams",
-        type: "uint256[]",
-      },
-      {
-        internalType: "bytes32",
-        name: "poolId",
-        type: "bytes32",
       },
     ],
     stateMutability: "nonpayable",

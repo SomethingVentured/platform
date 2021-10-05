@@ -98,8 +98,8 @@ describe("Crowdfund via Proxy from Factory", () => {
 
             // Compute address.
             const constructorArgs = ethers.utils.defaultAbiCoder.encode(
-              ["string", "string", "address"],
-              [name, symbol, creatorWallet.address]
+              ["address", "address", "address"],
+              [creatorWallet.address, fundingRecipient.address, token.address]
             );
             const salt = ethers.utils.keccak256(constructorArgs);
             const proxyBytecode = (

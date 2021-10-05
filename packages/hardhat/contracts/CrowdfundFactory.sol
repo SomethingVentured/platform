@@ -16,17 +16,10 @@ contract CrowdfundFactory {
         uint256 percentCut;
     }
 
-    struct Parameters {
-        address payable[] addresses;
-        uint256 [] fundingParams;
-        bytes32 poolId;
-    }
-
     //======== Events ========
 
     event CrowdfundDeployed(
         address crowdfundProxy,
-        bytes32 poolId,
         uint256 [] fundingParams,
         address payable[] addresses
     );
@@ -37,12 +30,18 @@ contract CrowdfundFactory {
 
     //======== Mutable storage =========
 
-    // Gets set within the block, and then deleted.
-    Parameters public parameters;
-
-    function getParameters() external view returns(Parameters memory) {
-        return parameters;
+    address payable[] public addresses;
+    function getAddresses() external view returns(address payable[] memory) {
+        return addresses;
     }
+    function getFundingParams() external view returns(uint256[] memory) {
+        return fundingParams;
+    }
+    function getPoolId() external view returns(bytes32) {
+        return poolId;
+    }
+    uint256[] public fundingParams;
+    bytes32 public poolId;
 
     //======== Constructor =========
 
@@ -57,16 +56,20 @@ contract CrowdfundFactory {
         uint256[] calldata fundingParams_,
         bytes32 poolId_
     ) external returns (address crowdfundProxy) {
-        parameters = Parameters({
-            addresses: addresses_,
-            fundingParams: fundingParams_,
-            poolId: poolId_
-        });
+        addresses = addresses_;
+        fundingParams = fundingParams_;
+        poolId = poolId_;
 
-        crowdfundProxy = address(new CrowdfundProxy());
+        crowdfundProxy = address(
+            new CrowdfundProxy{
+                salt: keccak256(abi.encode(addresses_[0], addresses_[1], addresses_[2]))
+            }()
+        );
 
-        delete parameters;
+        delete addresses;
+        delete fundingParams;
+        delete poolId;
 
-        emit CrowdfundDeployed(crowdfundProxy, poolId_, fundingParams_, addresses_);
+        emit CrowdfundDeployed(crowdfundProxy, fundingParams_, addresses_);
     }
 }
