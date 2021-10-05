@@ -1,7 +1,6 @@
 import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import {
   Box,
-  Button,
   Collapse,
   Flex,
   Icon,
@@ -17,6 +16,10 @@ import {
   useDisclosure,
 } from '@chakra-ui/react'
 import React from 'react'
+
+import { useWeb3 } from '../lib/hooks'
+import { ConnectButton } from './web3'
+
 
 interface NavItem {
   label: string
@@ -80,13 +83,17 @@ const headerStyles = {
   left: 0,
   width: ['100%', '100vw'],
   backdropFilter: 'blur(7px)',
-  boxShadow: '0 0 8px rgba(0,0,0,0.4)',
+  boxShadow: ['none', '0 0 8px rgba(0,0,0,0.4)'],
   transition: 'all 0.2s ease',
   zIndex: 2000
 }
 
 export const Navbar: React.FC = () => {
   const { isOpen, onToggle } = useDisclosure()
+  const {
+    address,
+  } = useWeb3()
+
   return (
     <Box className="header" sx={headerStyles} backgroundColor={isOpen ? 'white' : 'rgba(255,255,255, 0.8)'}>
       <Flex align="center" justifyContent="space-between" py={2} px={8}>
@@ -100,30 +107,21 @@ export const Navbar: React.FC = () => {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} align="center">
           <Link href="/">
-            <Image src="/assets/logo.png" maxW="100px"/>
+            <Image src="/assets/logo.png" maxW="100px" />
           </Link>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
         </Flex>
 
-        <Stack flex={{ base: 1, md: 0 }} justify="flex-end" direction="row" spacing={6}>
-          <Button as="a" fontSize="xs" fontWeight={400} variant="link" href="#">
-            Sign In
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize="xs"
-            fontWeight={600}
-            color="white"
-            bg="green.700"
-            href="#"
-            _hover={{
-              bg: 'green.300',
-            }}
-          >
-            Sign Up
-          </Button>
+        <Stack flex={{ base: 1, md: 1 }} justify="flex-end" direction="row" align="center" spacing={2}>
+          {address && (
+            <Box fontWeight="500" color="gray.700" fontSize="sm" zIndex={200} sx={{a: { color: 'green.500'}}}>
+              {'Account: '} <Link href="/account">{`${address.substr(0, 8,)}`}</Link>
+            </Box>
+          )}
+
+          <ConnectButton />
         </Stack>
       </Flex>
 
@@ -135,8 +133,8 @@ export const Navbar: React.FC = () => {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('gray.800', 'white')
+  const linkColor = useColorModeValue('green.500', 'gray.200')
+  const linkHoverColor = useColorModeValue('yellow.900', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
 
   return (
