@@ -54,7 +54,10 @@
 
     // we want to be able to use functions before definition
     "@typescript-eslint/no-use-before-define": "off",
-    
+
+    // disable the rule for all files (we enable again later for *.ts(x))
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+
     "@typescript-eslint/ban-ts-comment": [
       "error",
       {
@@ -64,6 +67,18 @@
     ]
   },
   "overrides": [
+    {
+      "files": ["*.jsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    },
+    {
+      "files": ["*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": ["error"]
+      }
+    },
     {
       // assuming Next.js application
       "files": "**/pages/**/*.{ts,tsx}",
@@ -84,5 +99,6 @@
         "@typescript-eslint/explicit-module-boundary-types": "off"
       }
     }
-  ]
+  ],
+  "ignorePatterns": [".eslintrc.js"]
 }
