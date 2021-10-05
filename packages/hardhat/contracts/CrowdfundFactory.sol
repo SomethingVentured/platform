@@ -40,6 +40,10 @@ contract CrowdfundFactory {
     // Gets set within the block, and then deleted.
     Parameters public parameters;
 
+    function getParameters() external view returns(Parameters memory) {
+        return parameters;
+    }
+
     //======== Constructor =========
 
     constructor(address logic_) {

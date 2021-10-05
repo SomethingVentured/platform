@@ -18,6 +18,14 @@ interface ICrowdfundFactory {
             uint256 [] calldata fundingParams,
             bytes32 poolId
         );
+
+    function getParameters()
+        external
+        returns (
+            address payable[] calldata addresses,
+            uint256 [] calldata fundingParams,
+            bytes32 poolId
+        );
 }
 
 /**
@@ -28,7 +36,7 @@ contract CrowdfundProxy is CrowdfundStorage {
     constructor() {
         logic = ICrowdfundFactory(msg.sender).logic();
         // Crowdfund-specific data.
-        (addresses, fundingParams, poolId) = ICrowdfundFactory(msg.sender).parameters();
+        (addresses, fundingParams, poolId) = ICrowdfundFactory(msg.sender).getParameters();
         // Initialize mutable storage.
         status = Status.FUNDING;
     }
