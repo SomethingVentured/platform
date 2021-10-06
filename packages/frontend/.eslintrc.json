@@ -51,10 +51,15 @@
 
     // Using a type system makes it safe enough to spread props
     "react/jsx-props-no-spreading": "off",
+    "react/react-in-jsx-scope": "off",
 
     // we want to be able to use functions before definition
     "@typescript-eslint/no-use-before-define": "off",
-    
+
+    // disable the rule for all files (we enable again later for *.ts(x))
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-console": "off",
+
     "@typescript-eslint/ban-ts-comment": [
       "error",
       {
@@ -64,6 +69,20 @@
     ]
   },
   "overrides": [
+    {
+      "files": ["*.jsx"],
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
+      }
+    },
+    {
+      "files": ["**/*.ts", "*.tsx"],
+      "rules": {
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+        "@typescript-eslint/no-console": "off",
+        "import/no-mutable-exports": "off"
+      }
+    },
     {
       // assuming Next.js application
       "files": "**/pages/**/*.{ts,tsx}",
@@ -84,5 +103,6 @@
         "@typescript-eslint/explicit-module-boundary-types": "off"
       }
     }
-  ]
+  ],
+  "ignorePatterns": [".eslintrc.js"]
 }
