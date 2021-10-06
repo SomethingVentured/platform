@@ -22,12 +22,13 @@ import type { TypedEventFilter, TypedEvent, TypedListener } from "./common";
 interface CrowdfundFactoryInterface extends ethers.utils.Interface {
   functions: {
     "addresses(uint256)": FunctionFragment;
-    "createCrowdfund(address[],uint256[],bytes32)": FunctionFragment;
+    "createCrowdfund(address[],uint256[],bytes32,string[])": FunctionFragment;
     "fundingParams(uint256)": FunctionFragment;
     "getAddresses()": FunctionFragment;
     "getFundingParams()": FunctionFragment;
-    "getPoolId()": FunctionFragment;
+    "getNaming()": FunctionFragment;
     "logic()": FunctionFragment;
+    "naming(uint256)": FunctionFragment;
     "poolId()": FunctionFragment;
   };
 
@@ -37,7 +38,7 @@ interface CrowdfundFactoryInterface extends ethers.utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "createCrowdfund",
-    values: [string[], BigNumberish[], BytesLike]
+    values: [string[], BigNumberish[], BytesLike, string[]]
   ): string;
   encodeFunctionData(
     functionFragment: "fundingParams",
@@ -51,8 +52,12 @@ interface CrowdfundFactoryInterface extends ethers.utils.Interface {
     functionFragment: "getFundingParams",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "getPoolId", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getNaming", values?: undefined): string;
   encodeFunctionData(functionFragment: "logic", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "naming",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "poolId", values?: undefined): string;
 
   decodeFunctionResult(functionFragment: "addresses", data: BytesLike): Result;
@@ -72,20 +77,22 @@ interface CrowdfundFactoryInterface extends ethers.utils.Interface {
     functionFragment: "getFundingParams",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getPoolId", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getNaming", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "logic", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "naming", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "poolId", data: BytesLike): Result;
 
   events: {
-    "CrowdfundDeployed(address,uint256[],address[])": EventFragment;
+    "CrowdfundDeployed(address,string[],uint256[],address[])": EventFragment;
   };
 
   getEvent(nameOrSignatureOrTopic: "CrowdfundDeployed"): EventFragment;
 }
 
 export type CrowdfundDeployedEvent = TypedEvent<
-  [string, BigNumber[], string[]] & {
+  [string, string[], BigNumber[], string[]] & {
     crowdfundProxy: string;
+    naming: string[];
     fundingParams: BigNumber[];
     addresses: string[];
   }
@@ -141,6 +148,7 @@ export class CrowdfundFactory extends BaseContract {
       addresses_: string[],
       fundingParams_: BigNumberish[],
       poolId_: BytesLike,
+      naming_: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -153,9 +161,11 @@ export class CrowdfundFactory extends BaseContract {
 
     getFundingParams(overrides?: CallOverrides): Promise<[BigNumber[]]>;
 
-    getPoolId(overrides?: CallOverrides): Promise<[string]>;
+    getNaming(overrides?: CallOverrides): Promise<[string[]]>;
 
     logic(overrides?: CallOverrides): Promise<[string]>;
+
+    naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     poolId(overrides?: CallOverrides): Promise<[string]>;
   };
@@ -166,6 +176,7 @@ export class CrowdfundFactory extends BaseContract {
     addresses_: string[],
     fundingParams_: BigNumberish[],
     poolId_: BytesLike,
+    naming_: string[],
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -178,9 +189,11 @@ export class CrowdfundFactory extends BaseContract {
 
   getFundingParams(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-  getPoolId(overrides?: CallOverrides): Promise<string>;
+  getNaming(overrides?: CallOverrides): Promise<string[]>;
 
   logic(overrides?: CallOverrides): Promise<string>;
+
+  naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   poolId(overrides?: CallOverrides): Promise<string>;
 
@@ -191,6 +204,7 @@ export class CrowdfundFactory extends BaseContract {
       addresses_: string[],
       fundingParams_: BigNumberish[],
       poolId_: BytesLike,
+      naming_: string[],
       overrides?: CallOverrides
     ): Promise<string>;
 
@@ -203,22 +217,26 @@ export class CrowdfundFactory extends BaseContract {
 
     getFundingParams(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-    getPoolId(overrides?: CallOverrides): Promise<string>;
+    getNaming(overrides?: CallOverrides): Promise<string[]>;
 
     logic(overrides?: CallOverrides): Promise<string>;
+
+    naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     poolId(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {
-    "CrowdfundDeployed(address,uint256[],address[])"(
+    "CrowdfundDeployed(address,string[],uint256[],address[])"(
       crowdfundProxy?: null,
+      naming?: null,
       fundingParams?: null,
       addresses?: null
     ): TypedEventFilter<
-      [string, BigNumber[], string[]],
+      [string, string[], BigNumber[], string[]],
       {
         crowdfundProxy: string;
+        naming: string[];
         fundingParams: BigNumber[];
         addresses: string[];
       }
@@ -226,12 +244,14 @@ export class CrowdfundFactory extends BaseContract {
 
     CrowdfundDeployed(
       crowdfundProxy?: null,
+      naming?: null,
       fundingParams?: null,
       addresses?: null
     ): TypedEventFilter<
-      [string, BigNumber[], string[]],
+      [string, string[], BigNumber[], string[]],
       {
         crowdfundProxy: string;
+        naming: string[];
         fundingParams: BigNumber[];
         addresses: string[];
       }
@@ -248,6 +268,7 @@ export class CrowdfundFactory extends BaseContract {
       addresses_: string[],
       fundingParams_: BigNumberish[],
       poolId_: BytesLike,
+      naming_: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -260,9 +281,11 @@ export class CrowdfundFactory extends BaseContract {
 
     getFundingParams(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getPoolId(overrides?: CallOverrides): Promise<BigNumber>;
+    getNaming(overrides?: CallOverrides): Promise<BigNumber>;
 
     logic(overrides?: CallOverrides): Promise<BigNumber>;
+
+    naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     poolId(overrides?: CallOverrides): Promise<BigNumber>;
   };
@@ -277,6 +300,7 @@ export class CrowdfundFactory extends BaseContract {
       addresses_: string[],
       fundingParams_: BigNumberish[],
       poolId_: BytesLike,
+      naming_: string[],
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
@@ -289,9 +313,14 @@ export class CrowdfundFactory extends BaseContract {
 
     getFundingParams(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getPoolId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getNaming(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     logic(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    naming(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     poolId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
   };

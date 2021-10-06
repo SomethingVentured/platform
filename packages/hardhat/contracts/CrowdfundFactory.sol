@@ -9,17 +9,12 @@ import {CrowdfundProxy} from "./CrowdfundProxy.sol";
  * @author MirrorXYZ
  */
 contract CrowdfundFactory {
-    //======== Structs ========
-
-    struct FundingReceiver {
-        address payable receiver;
-        uint256 percentCut;
-    }
 
     //======== Events ========
 
     event CrowdfundDeployed(
         address crowdfundProxy,
+        string[] naming,
         uint256 [] fundingParams,
         address payable[] addresses
     );
@@ -31,17 +26,19 @@ contract CrowdfundFactory {
     //======== Mutable storage =========
 
     address payable[] public addresses;
-    function getAddresses() external view returns(address payable[] memory) {
+    uint256[] public fundingParams;
+    string[] public naming;
+    bytes32 public poolId;
+
+    function getAddresses() external view returns (address payable[] memory) {
         return addresses;
     }
-    function getFundingParams() external view returns(uint256[] memory) {
+    function getFundingParams() external view returns (uint256[] memory) {
         return fundingParams;
     }
-    function getPoolId() external view returns(bytes32) {
-        return poolId;
+    function getNaming() external view returns (string[] memory) {
+        return naming;
     }
-    uint256[] public fundingParams;
-    bytes32 public poolId;
 
     //======== Constructor =========
 
@@ -52,24 +49,27 @@ contract CrowdfundFactory {
     //======== Deploy function =========
 
     function createCrowdfund(
-        address payable[] calldata addresses_,
-        uint256[] calldata fundingParams_,
-        bytes32 poolId_
+        address payable[] memory addresses_,
+        uint256[] memory fundingParams_,
+        bytes32 poolId_,
+        string[] memory naming_
     ) external returns (address crowdfundProxy) {
         addresses = addresses_;
         fundingParams = fundingParams_;
         poolId = poolId_;
+        naming = naming_;
 
         crowdfundProxy = address(
             new CrowdfundProxy{
-                salt: keccak256(abi.encode(addresses_[0], addresses_[1], addresses_[2]))
+                salt: keccak256(abi.encode(addresses_[0], naming_[0], naming_[1]))
             }()
         );
 
         delete addresses;
         delete fundingParams;
         delete poolId;
+        delete naming;
 
-        emit CrowdfundDeployed(crowdfundProxy, fundingParams_, addresses_);
+        emit CrowdfundDeployed(crowdfundProxy, naming_, fundingParams_, addresses_);
     }
 }

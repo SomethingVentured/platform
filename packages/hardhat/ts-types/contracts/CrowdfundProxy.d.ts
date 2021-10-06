@@ -23,6 +23,7 @@ interface CrowdfundProxyInterface extends ethers.utils.Interface {
     "addresses(uint256)": FunctionFragment;
     "fundingParams(uint256)": FunctionFragment;
     "logic()": FunctionFragment;
+    "naming(uint256)": FunctionFragment;
     "poolId()": FunctionFragment;
     "status()": FunctionFragment;
   };
@@ -36,6 +37,10 @@ interface CrowdfundProxyInterface extends ethers.utils.Interface {
     values: [BigNumberish]
   ): string;
   encodeFunctionData(functionFragment: "logic", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "naming",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "poolId", values?: undefined): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
 
@@ -45,6 +50,7 @@ interface CrowdfundProxyInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "logic", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "naming", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "poolId", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
 
@@ -104,6 +110,8 @@ export class CrowdfundProxy extends BaseContract {
 
     logic(overrides?: CallOverrides): Promise<[string]>;
 
+    naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
+
     poolId(overrides?: CallOverrides): Promise<[string]>;
 
     status(overrides?: CallOverrides): Promise<[number]>;
@@ -118,6 +126,8 @@ export class CrowdfundProxy extends BaseContract {
 
   logic(overrides?: CallOverrides): Promise<string>;
 
+  naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
+
   poolId(overrides?: CallOverrides): Promise<string>;
 
   status(overrides?: CallOverrides): Promise<number>;
@@ -131,6 +141,8 @@ export class CrowdfundProxy extends BaseContract {
     ): Promise<BigNumber>;
 
     logic(overrides?: CallOverrides): Promise<string>;
+
+    naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     poolId(overrides?: CallOverrides): Promise<string>;
 
@@ -152,6 +164,8 @@ export class CrowdfundProxy extends BaseContract {
 
     logic(overrides?: CallOverrides): Promise<BigNumber>;
 
+    naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
+
     poolId(overrides?: CallOverrides): Promise<BigNumber>;
 
     status(overrides?: CallOverrides): Promise<BigNumber>;
@@ -169,6 +183,11 @@ export class CrowdfundProxy extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     logic(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    naming(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     poolId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 

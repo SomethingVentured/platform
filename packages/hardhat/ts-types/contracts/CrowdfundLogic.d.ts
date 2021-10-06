@@ -26,11 +26,10 @@ interface CrowdfundLogicInterface extends ethers.utils.Interface {
     "closeFunding()": FunctionFragment;
     "contribute(address,uint256)": FunctionFragment;
     "fundingParams(uint256)": FunctionFragment;
-    "getTokenAddress()": FunctionFragment;
     "logic()": FunctionFragment;
+    "naming(uint256)": FunctionFragment;
     "poolId()": FunctionFragment;
-    "redeem(uint256)": FunctionFragment;
-    "redeemableFromTokens(uint256)": FunctionFragment;
+    "redeem()": FunctionFragment;
     "status()": FunctionFragment;
   };
 
@@ -50,20 +49,13 @@ interface CrowdfundLogicInterface extends ethers.utils.Interface {
     functionFragment: "fundingParams",
     values: [BigNumberish]
   ): string;
-  encodeFunctionData(
-    functionFragment: "getTokenAddress",
-    values?: undefined
-  ): string;
   encodeFunctionData(functionFragment: "logic", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "naming",
+    values: [BigNumberish]
+  ): string;
   encodeFunctionData(functionFragment: "poolId", values?: undefined): string;
-  encodeFunctionData(
-    functionFragment: "redeem",
-    values: [BigNumberish]
-  ): string;
-  encodeFunctionData(
-    functionFragment: "redeemableFromTokens",
-    values: [BigNumberish]
-  ): string;
+  encodeFunctionData(functionFragment: "redeem", values?: undefined): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
 
   decodeFunctionResult(functionFragment: "addresses", data: BytesLike): Result;
@@ -76,35 +68,22 @@ interface CrowdfundLogicInterface extends ethers.utils.Interface {
     functionFragment: "fundingParams",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(
-    functionFragment: "getTokenAddress",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "logic", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "naming", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "poolId", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "redeem", data: BytesLike): Result;
-  decodeFunctionResult(
-    functionFragment: "redeemableFromTokens",
-    data: BytesLike
-  ): Result;
   decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
 
   events: {
-    "BidAccepted(uint256)": EventFragment;
     "Contribution(address,uint256)": EventFragment;
     "FundingClosed(uint256)": EventFragment;
-    "ReceivedERC721(uint256,address)": EventFragment;
-    "Redeemed(address,uint256)": EventFragment;
+    "Redeemed(address)": EventFragment;
   };
 
-  getEvent(nameOrSignatureOrTopic: "BidAccepted"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Contribution"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "FundingClosed"): EventFragment;
-  getEvent(nameOrSignatureOrTopic: "ReceivedERC721"): EventFragment;
   getEvent(nameOrSignatureOrTopic: "Redeemed"): EventFragment;
 }
-
-export type BidAcceptedEvent = TypedEvent<[BigNumber] & { amount: BigNumber }>;
 
 export type ContributionEvent = TypedEvent<
   [string, BigNumber] & { contributor: string; amount: BigNumber }
@@ -114,13 +93,7 @@ export type FundingClosedEvent = TypedEvent<
   [BigNumber] & { amountRaised: BigNumber }
 >;
 
-export type ReceivedERC721Event = TypedEvent<
-  [BigNumber, string] & { tokenId: BigNumber; sender: string }
->;
-
-export type RedeemedEvent = TypedEvent<
-  [string, BigNumber] & { contributor: string; amount: BigNumber }
->;
+export type RedeemedEvent = TypedEvent<[string] & { contributor: string }>;
 
 export class CrowdfundLogic extends BaseContract {
   connect(signerOrProvider: Signer | Provider | string): this;
@@ -183,21 +156,15 @@ export class CrowdfundLogic extends BaseContract {
       overrides?: CallOverrides
     ): Promise<[BigNumber]>;
 
-    getTokenAddress(overrides?: CallOverrides): Promise<[string]>;
-
     logic(overrides?: CallOverrides): Promise<[string]>;
+
+    naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<[string]>;
 
     poolId(overrides?: CallOverrides): Promise<[string]>;
 
     redeem(
-      tokenAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
-
-    redeemableFromTokens(
-      tokenAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<[BigNumber]>;
 
     status(overrides?: CallOverrides): Promise<[number]>;
   };
@@ -219,21 +186,15 @@ export class CrowdfundLogic extends BaseContract {
     overrides?: CallOverrides
   ): Promise<BigNumber>;
 
-  getTokenAddress(overrides?: CallOverrides): Promise<string>;
-
   logic(overrides?: CallOverrides): Promise<string>;
+
+  naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
   poolId(overrides?: CallOverrides): Promise<string>;
 
   redeem(
-    tokenAmount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
-
-  redeemableFromTokens(
-    tokenAmount: BigNumberish,
-    overrides?: CallOverrides
-  ): Promise<BigNumber>;
 
   status(overrides?: CallOverrides): Promise<number>;
 
@@ -253,31 +214,18 @@ export class CrowdfundLogic extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getTokenAddress(overrides?: CallOverrides): Promise<string>;
-
     logic(overrides?: CallOverrides): Promise<string>;
+
+    naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     poolId(overrides?: CallOverrides): Promise<string>;
 
-    redeem(tokenAmount: BigNumberish, overrides?: CallOverrides): Promise<void>;
-
-    redeemableFromTokens(
-      tokenAmount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<BigNumber>;
+    redeem(overrides?: CallOverrides): Promise<void>;
 
     status(overrides?: CallOverrides): Promise<number>;
   };
 
   filters: {
-    "BidAccepted(uint256)"(
-      amount?: null
-    ): TypedEventFilter<[BigNumber], { amount: BigNumber }>;
-
-    BidAccepted(
-      amount?: null
-    ): TypedEventFilter<[BigNumber], { amount: BigNumber }>;
-
     "Contribution(address,uint256)"(
       contributor?: null,
       amount?: null
@@ -302,37 +250,13 @@ export class CrowdfundLogic extends BaseContract {
       amountRaised?: null
     ): TypedEventFilter<[BigNumber], { amountRaised: BigNumber }>;
 
-    "ReceivedERC721(uint256,address)"(
-      tokenId?: null,
-      sender?: null
-    ): TypedEventFilter<
-      [BigNumber, string],
-      { tokenId: BigNumber; sender: string }
-    >;
-
-    ReceivedERC721(
-      tokenId?: null,
-      sender?: null
-    ): TypedEventFilter<
-      [BigNumber, string],
-      { tokenId: BigNumber; sender: string }
-    >;
-
-    "Redeemed(address,uint256)"(
-      contributor?: null,
-      amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { contributor: string; amount: BigNumber }
-    >;
+    "Redeemed(address)"(
+      contributor?: null
+    ): TypedEventFilter<[string], { contributor: string }>;
 
     Redeemed(
-      contributor?: null,
-      amount?: null
-    ): TypedEventFilter<
-      [string, BigNumber],
-      { contributor: string; amount: BigNumber }
-    >;
+      contributor?: null
+    ): TypedEventFilter<[string], { contributor: string }>;
   };
 
   estimateGas: {
@@ -356,20 +280,14 @@ export class CrowdfundLogic extends BaseContract {
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
-    getTokenAddress(overrides?: CallOverrides): Promise<BigNumber>;
-
     logic(overrides?: CallOverrides): Promise<BigNumber>;
+
+    naming(arg0: BigNumberish, overrides?: CallOverrides): Promise<BigNumber>;
 
     poolId(overrides?: CallOverrides): Promise<BigNumber>;
 
     redeem(
-      tokenAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<BigNumber>;
-
-    redeemableFromTokens(
-      tokenAmount: BigNumberish,
-      overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     status(overrides?: CallOverrides): Promise<BigNumber>;
@@ -396,20 +314,17 @@ export class CrowdfundLogic extends BaseContract {
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
-    getTokenAddress(overrides?: CallOverrides): Promise<PopulatedTransaction>;
-
     logic(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    naming(
+      arg0: BigNumberish,
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
 
     poolId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     redeem(
-      tokenAmount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
-    ): Promise<PopulatedTransaction>;
-
-    redeemableFromTokens(
-      tokenAmount: BigNumberish,
-      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     status(overrides?: CallOverrides): Promise<PopulatedTransaction>;

@@ -15,11 +15,9 @@ import "./BalancerVault.sol";
 contract CrowdfundLogic is CrowdfundStorage {
     // ============ Events ============
 
-    event ReceivedERC721(uint256 tokenId, address sender);
     event Contribution(address contributor, uint256 amount);
     event FundingClosed(uint256 amountRaised);
-    event BidAccepted(uint256 amount);
-    event Redeemed(address contributor, uint256 amount);
+    event Redeemed(address contributor);
 
     // ============ Modifiers ============
 
@@ -59,35 +57,24 @@ contract CrowdfundLogic is CrowdfundStorage {
         nonReentrant
     {
         require(block.timestamp<fundingParams[2], "Crowdfund: Funding period is over");
-        require(status == Status.FUNDING, "Crowdfund: Funding must be open");
         require(amount == msg.value, "Crowdfund: Amount is not value sent");
-        ExampleERC20Token ercToken = ExampleERC20Token(addresses[2]);
-        ercToken.mint(backer, amount);
+        contributions[backer]+=amount;
+        totalContributions+=amount;
         emit Contribution(backer, amount);
     }
 
     /**
-     * @notice Burns the sender's tokens and redeems underlying ETH.
+     * @notice Returns all the ETH that contributor supplied, can only be called if funding period is over and funding goal was not reached
      * @dev Emits the Redeemed event.
      */
-    function redeem(uint256 tokenAmount) external nonReentrant {
+    function redeem() external nonReentrant {
         require(block.timestamp>fundingParams[2] && address(this).balance<fundingParams[1], "Crowdfund: Funding has either not closed or has succeeded in meeting its goal");
         require(address(this).balance > 0, "Crowdfund: No ETH available to redeem");
         
-        uint256 redeemable = redeemableFromTokens(tokenAmount);
-        ExampleERC20Token ercToken = ExampleERC20Token(addresses[2]);
-        ercToken.burn(msg.sender, tokenAmount);
-        sendValue(payable(msg.sender), redeemable);
-        emit Redeemed(msg.sender, redeemable);
-    }
-
-    /**
-     * @notice Returns the amount of ETH that is redeemable for tokenAmount.
-     */
-    function redeemableFromTokens(uint256 tokenAmount) public view returns (uint256) {
-        ExampleERC20Token ercToken = ExampleERC20Token(addresses[2]);
-        uint256 supply = ercToken.totalSupply();
-        return (tokenAmount * address(this).balance) / supply;
+        totalContributions-=contributions[msg.sender];
+        contributions[msg.sender] = 0;
+        sendValue(payable(msg.sender), contributions[msg.sender]);
+        emit Redeemed(msg.sender);
     }
 
     // ============ Operator Methods ============
@@ -129,9 +116,5 @@ contract CrowdfundLogic is CrowdfundStorage {
             success,
             "Address: unable to send value, recipient may have reverted"
         );
-    }
-
-    function getTokenAddress() public view returns(address) {
-        return addresses[2];
     }
 }

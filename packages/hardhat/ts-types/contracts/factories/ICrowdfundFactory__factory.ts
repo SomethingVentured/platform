@@ -38,12 +38,12 @@ const _abi = [
   },
   {
     inputs: [],
-    name: "getPoolId",
+    name: "getNaming",
     outputs: [
       {
-        internalType: "bytes32",
+        internalType: "string[]",
         name: "",
-        type: "bytes32",
+        type: "string[]",
       },
     ],
     stateMutability: "view",
@@ -70,6 +70,19 @@ const _abi = [
         internalType: "address",
         name: "",
         type: "address",
+      },
+    ],
+    stateMutability: "nonpayable",
+    type: "function",
+  },
+  {
+    inputs: [],
+    name: "poolId",
+    outputs: [
+      {
+        internalType: "bytes32",
+        name: "",
+        type: "bytes32",
       },
     ],
     stateMutability: "nonpayable",

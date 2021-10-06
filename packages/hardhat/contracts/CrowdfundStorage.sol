@@ -24,6 +24,7 @@ contract CrowdfundStorage {
     address payable[] public addresses;
     // fundingParams = [operatorPercent, minimumLimit, deadline]
     uint256 [] public fundingParams;
+    string[] public naming;
     bytes32 public poolId;
 
     // ============ Mutable Storage ============
@@ -31,6 +32,8 @@ contract CrowdfundStorage {
     // Represents the current state of the campaign.
     Status public status;
     uint256 internal reentrancy_status;
+    mapping(address=>uint256) contributions;
+    uint256 totalContributions;
 
     // ============ Delegation logic ============
     address public logic;

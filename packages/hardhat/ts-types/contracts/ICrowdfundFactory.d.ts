@@ -23,9 +23,10 @@ interface ICrowdfundFactoryInterface extends ethers.utils.Interface {
   functions: {
     "getAddresses()": FunctionFragment;
     "getFundingParams()": FunctionFragment;
-    "getPoolId()": FunctionFragment;
+    "getNaming()": FunctionFragment;
     "logic()": FunctionFragment;
     "mediaAddress()": FunctionFragment;
+    "poolId()": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -36,12 +37,13 @@ interface ICrowdfundFactoryInterface extends ethers.utils.Interface {
     functionFragment: "getFundingParams",
     values?: undefined
   ): string;
-  encodeFunctionData(functionFragment: "getPoolId", values?: undefined): string;
+  encodeFunctionData(functionFragment: "getNaming", values?: undefined): string;
   encodeFunctionData(functionFragment: "logic", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "mediaAddress",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "poolId", values?: undefined): string;
 
   decodeFunctionResult(
     functionFragment: "getAddresses",
@@ -51,12 +53,13 @@ interface ICrowdfundFactoryInterface extends ethers.utils.Interface {
     functionFragment: "getFundingParams",
     data: BytesLike
   ): Result;
-  decodeFunctionResult(functionFragment: "getPoolId", data: BytesLike): Result;
+  decodeFunctionResult(functionFragment: "getNaming", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "logic", data: BytesLike): Result;
   decodeFunctionResult(
     functionFragment: "mediaAddress",
     data: BytesLike
   ): Result;
+  decodeFunctionResult(functionFragment: "poolId", data: BytesLike): Result;
 
   events: {};
 }
@@ -109,7 +112,7 @@ export class ICrowdfundFactory extends BaseContract {
 
     getFundingParams(overrides?: CallOverrides): Promise<[BigNumber[]]>;
 
-    getPoolId(overrides?: CallOverrides): Promise<[string]>;
+    getNaming(overrides?: CallOverrides): Promise<[string[]]>;
 
     logic(
       overrides?: Overrides & { from?: string | Promise<string> }
@@ -118,13 +121,17 @@ export class ICrowdfundFactory extends BaseContract {
     mediaAddress(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    poolId(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<ContractTransaction>;
   };
 
   getAddresses(overrides?: CallOverrides): Promise<string[]>;
 
   getFundingParams(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-  getPoolId(overrides?: CallOverrides): Promise<string>;
+  getNaming(overrides?: CallOverrides): Promise<string[]>;
 
   logic(
     overrides?: Overrides & { from?: string | Promise<string> }
@@ -134,16 +141,22 @@ export class ICrowdfundFactory extends BaseContract {
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
+  poolId(
+    overrides?: Overrides & { from?: string | Promise<string> }
+  ): Promise<ContractTransaction>;
+
   callStatic: {
     getAddresses(overrides?: CallOverrides): Promise<string[]>;
 
     getFundingParams(overrides?: CallOverrides): Promise<BigNumber[]>;
 
-    getPoolId(overrides?: CallOverrides): Promise<string>;
+    getNaming(overrides?: CallOverrides): Promise<string[]>;
 
     logic(overrides?: CallOverrides): Promise<string>;
 
     mediaAddress(overrides?: CallOverrides): Promise<string>;
+
+    poolId(overrides?: CallOverrides): Promise<string>;
   };
 
   filters: {};
@@ -153,13 +166,17 @@ export class ICrowdfundFactory extends BaseContract {
 
     getFundingParams(overrides?: CallOverrides): Promise<BigNumber>;
 
-    getPoolId(overrides?: CallOverrides): Promise<BigNumber>;
+    getNaming(overrides?: CallOverrides): Promise<BigNumber>;
 
     logic(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
     mediaAddress(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<BigNumber>;
+
+    poolId(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
   };
@@ -169,13 +186,17 @@ export class ICrowdfundFactory extends BaseContract {
 
     getFundingParams(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
-    getPoolId(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+    getNaming(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     logic(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 
     mediaAddress(
+      overrides?: Overrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    poolId(
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
   };
