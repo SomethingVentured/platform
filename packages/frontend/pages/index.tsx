@@ -1,10 +1,10 @@
-import { AspectRatio, Box, Button, Heading, HStack, Image, SimpleGrid,Tag, Text, VStack } from '@chakra-ui/react'
+import { AspectRatio, Box, Button, Heading, HStack, Image, SimpleGrid, Tag, Text, VStack } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import React from 'react'
+import { FC } from 'react'
 import { FiChevronDown } from 'react-icons/fi'
 
-import { Benefits,Hero } from '../components'
+import { Benefits, Hero } from '../components'
 import { Layout } from '../components/Layout'
 
 type ProjectsType = {
@@ -28,6 +28,134 @@ type HighlightedProjectType = {
   daoType: string
   newProject?: boolean
 }
+
+type FundingInfoItemType = {
+  value: string
+  itemName: string
+}
+
+
+const Home: NextPage = () => (
+  <Layout>
+    <Box d="flex" flexFlow="row wrap" alignItems="center" width="100%" height="100%" minH="100vh">
+      <Hero />
+    </Box>
+    <Box id="benefits" d="flex" flexFlow="column wrap" justifyContent="center" width="100%" minH="100vh">
+      <SimpleGrid columns={{base: 1, lg: 2}} spacing={10} py={{base: '75px', xl: 0}}>
+        <Benefits type="fundee" />
+        <Benefits type="funder" />
+      </SimpleGrid>
+      <Box textAlign="center" justifyContent="center" d="flex" width="100%" sx={{
+        d: {base: 'none', md: 'initial'},
+        'a, button, div': {
+            fontSize: {base: '40px', xl: '60px'},
+            transition: 'all 0.2s ease',
+            _hover: {
+              color: 'green.700',
+              opacity: 0.09
+            }
+          }
+        }}>        
+        <Link href="/#highlights" passHref>
+          <VStack spacing={[5, 10]}>
+            <Button variant="cta">Example projects</Button>
+            <Box sx={{
+                    // animation: `${bounce} 2s ease infinite`,
+                    color: 'green.500',
+                    fontSize: '60px',
+                    transform: 'translate3d(0 70px 0)' 
+                }}><FiChevronDown />
+            </Box>
+          </VStack>
+        </Link>
+      </Box>
+    </Box>
+    <Box id="highlights" d="flex" alignItems="center" width="100%" minH="100vh">
+      <HighlightedItems items={highlightedProjects} />
+    </Box>
+  </Layout>
+)
+// eslint-disable-next-line import/no-default-export
+export default Home
+
+
+export const HighlightedItems: FC<ProjectsType> = ({ items }) => {
+  const listItems = items.map((item) => (
+    <Box key={`highlightedItem-${item.id}`} flex={{base: '0 0 100%', xl: '0 0 30%'}} width={{base: '100%', xl: '30%'}} mb={{base: 20, xl: 20}} sx={highlightedItemsStyles}>
+      <AspectRatio maxW="360" ratio={16 / 9}>
+        <Image src={item.image} />
+      </AspectRatio>
+      <Box mt={3} mb={5}>
+        <Heading as="h3" sx={{
+          fontSize: {base: '25px', xl: '30px'}
+        }}><span>{item.title}</span> {item.newProject && <Box as="span" sx={{boxShadow: '1px 1px 1px rgba(0,0,0, 0.4)'}}>New</Box>}</Heading>
+        <Text
+          sx={{
+            fontSize: {base: '14px', xl: '16px'},
+            mb: 3,
+          }}
+        >
+          {item.description}
+        </Text>
+        <Text
+          sx={{
+            fontSize: {base: '12px', xl: '14px'},
+          }}
+        >
+          by <Link href={`/user/${item.id}`}>{item.owner}</Link>
+        </Text>
+      </Box>
+
+      <HStack borderTop="2px solid gold" justify="space-between" borderColor="yellow.700" align="flex-start" textAlign="left" spacing={0} pt={5} mb={5}>
+        <FundingInfoItem value={`${item.funding.pledged}`} itemName="Ξ pledged" />
+        <FundingInfoItem value={`${item.funding.fundedPercent}`} itemName="% funded" />
+        <FundingInfoItem value="2" itemName="days to go" />
+      </HStack>
+
+      <HStack>
+        <Tag>{item.network}</Tag>
+        <Tag>{item.daoType}</Tag>
+      </HStack>
+    </Box>
+  ))
+
+  return (
+    <Box>
+      <Heading as="h2" size="2xl" variant="secondary">Check out the projects...</Heading>
+      <Box
+        className="hightlightedItems"
+        d="flex"
+        flexFlow={{ base: 'column wrap', xl: 'row nowrap' }}
+        justifyContent="space-between"
+        py={6}
+        >
+        {listItems}
+      </Box>
+      <Box pt={{base: 0, xl: 20}} textAlign="center">
+        <Button href="/" variant="cta" size="sm">View all projects</Button>
+      </Box>
+    </Box>
+  )
+}
+
+
+export const FundingInfoItem: FC<FundingInfoItemType> = ({value, itemName}) => (
+  <VStack sx={{
+    'span:first-of-type': {
+      color: 'green.800',
+      fontFamily: 'heading',
+      fontSize: ['30px','40px']
+    }, 
+    'span + span': {
+      color: 'gray.400',
+      fontSize: ['16px', '16px'],
+      mt: '-0.5rem',
+      textTransform: 'uppercase'
+    }
+  }}>
+    <span>{value}</span> <span>{itemName}</span>
+  </VStack>
+)
 
 export const highlightedProjects = [
   {
@@ -102,104 +230,3 @@ const highlightedItemsStyles = {
     }
   }
 }
-
-export const HighlightedItems: React.FC<ProjectsType> = ({ items }) => {
-  const listItems = items.map((item) => (
-    <Box key={`highlightedItem-${item.id}`} flex={{base: '0 0 100%', xl: '0 0 30%'}} width={{base: '100%', xl: '30%'}} mb={{base: 20, xl: 20}} sx={highlightedItemsStyles}>
-      <AspectRatio maxW="360" ratio={16 / 9}>
-        <Image src={item.image} />
-      </AspectRatio>
-      <Box mt={3} mb={5}>
-        <Heading as="h3" sx={{
-          fontSize: {base: '25px', xl: '30px'}
-        }}><span>{item.title}</span> {item.newProject && <Box as="span" sx={{boxShadow: '1px 1px 1px rgba(0,0,0, 0.4)'}}>New</Box>}</Heading>
-        <Text
-          sx={{
-            fontSize: {base: '14px', xl: '16px'},
-            mb: 3,
-          }}
-        >
-          {item.description}
-        </Text>
-        <Text
-          sx={{
-            fontSize: {base: '12px', xl: '14px'},
-          }}
-        >
-          by <Link href={`/user/${item.id}`}>{item.owner}</Link>
-        </Text>
-      </Box>
-
-      <VStack borderTop="2px solid gold" borderColor="yellow.700" align="flex-start" textAlign="left" spacing="1" pt={5} mb={5}>
-        <span>{item.funding.pledged} pledged</span>
-        <span>{item.funding.fundedPercent}% funded</span>
-        <span>2 days to go</span>
-      </VStack>
-
-      <HStack>
-        <Tag>{item.network}</Tag>
-        <Tag>{item.daoType}</Tag>
-      </HStack>
-    </Box>
-  ))
-  return (
-    <Box>
-      <Heading as="h2" size="2xl" variant="secondary">Check out the projects...</Heading>
-      <Box
-        className="hightlightedItems"
-        d="flex"
-        flexFlow={{ base: 'column wrap', xl: 'row nowrap' }}
-        justifyContent="space-between"
-        py={6}
-        >
-        {listItems}
-      </Box>
-      <Box pt={{base: 0, xl: 20}} textAlign="center">
-        <Button href="/" variant="cta" size="sm">View all projects</Button>
-      </Box>
-    </Box>
-  )
-}
-
-const Home: NextPage = (): JSX.Element => (
-  <Layout>
-    <Box d="flex" flexFlow="row wrap" alignItems="center" width="100%" height="100%" minH="100vh">
-      <Hero />
-    </Box>
-    <Box id="benefits" d="flex" flexFlow="column wrap" justifyContent="center" width="100%" minH="100vh">
-      <SimpleGrid columns={{base: 1, lg: 2}} spacing={10} py={{base: '75px', xl: 'auto'}}>
-        <Benefits type="fundee" />
-        <Benefits type="funder" />
-      </SimpleGrid>
-      <Box textAlign="center" justifyContent="center" d="flex" width="100%" sx={{
-        d: {base: 'none', md: 'initial'},
-        'a, button, div': {
-            fontSize: {base: '40px', xl: '60px'},
-            transition: 'all 0.2s ease',
-            _hover: {
-              color: 'green.700',
-              opacity: 0.09
-            }
-          }
-        }}>        
-        <Link href="/#highlights" passHref>
-          <VStack spacing={[5, 10]}>
-            <Button variant="cta">Example projects</Button>
-            <Box sx={{
-                    // animation: `${bounce} 2s ease infinite`,
-                    color: 'green.500',
-                    fontSize: '60px',
-                    transform: 'translate3d(0 70px 0)' 
-                }}><FiChevronDown />
-            </Box>
-          </VStack>
-        </Link>
-      </Box>
-    </Box>
-    <Box id="highlights" d="flex" alignItems="center" width="100%" minH="100vh">
-      <HighlightedItems items={highlightedProjects} />
-    </Box>
-  </Layout>
-)
-// eslint-disable-next-line import/no-default-export
-export default Home
