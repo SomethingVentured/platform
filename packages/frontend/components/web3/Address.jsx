@@ -1,4 +1,4 @@
-import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import { Skeleton,Text } from '@chakra-ui/react'
 import React from 'react'
 import Blockies from 'react-blockies'
 // import { useThemeSwitcher } from "react-css-theme-switcher";
@@ -9,8 +9,7 @@ const blockExplorerLink = (address, blockExplorer) =>
   `${blockExplorer || 'https://etherscan.io/'}${'address/'}${address}`
 
 export function Address(props) {
-  const address = props.value || props.address
-
+  const { address, minimized, size, onChange, fontSize, blockExplorer} = props
   // const ens = useEnsAddress(props.ensProvider, address)
 
   // const { currentTheme } = useThemeSwitcher();
@@ -28,14 +27,14 @@ export function Address(props) {
   // const ensSplit = ens && ens.split('.')
   // const validEnsCheck = ensSplit && ensSplit[ensSplit.length - 1] === 'eth'
 
-  if (props.size === 'short') {
+  if (size === 'short') {
     displayAddress += `...${  address.substr(-4)}`
-  } else if (props.size === 'long') {
+  } else if (size === 'long') {
     displayAddress = address
   }
 
-  const etherscanLink = blockExplorerLink(address, props.blockExplorer)
-  if (props.minimized) {
+  const etherscanLink = blockExplorerLink(address, blockExplorer)
+  if (minimized) {
     return (
       <span style={{ verticalAlign: 'middle' }}>
         <a
@@ -51,12 +50,9 @@ export function Address(props) {
   }
 
   let text
-  if (props.onChange) {
+  if (onChange) {
     text = (
-      <Text
-        editable={{ onChange: props.onChange }}
-        copyable={{ text: address }}
-      >
+      <Text>
         <a
           // style={{ color: currentTheme === "light" ? "#222222" : "#ddd" }}
           target="_blank"
@@ -69,7 +65,7 @@ export function Address(props) {
     )
   } else {
     text = (
-      <Text copyable={{ text: address }}>
+      <Text>
         <a
           // style={{ color: currentTheme === "light" ? "#222222" : "#ddd" }}
           target="_blank"
@@ -88,14 +84,14 @@ export function Address(props) {
         <Blockies
           seed={address.toLowerCase()}
           size={8}
-          scale={props.fontSize ? props.fontSize / 7 : 4}
+          scale={fontSize ? fontSize / 7 : 4}
         />
       </span>
       <span
         style={{
           verticalAlign: 'middle',
           paddingLeft: 5,
-          fontSize: props.fontSize ? props.fontSize : 28
+          fontSize: fontSize || 28
         }}
       >
         {text}

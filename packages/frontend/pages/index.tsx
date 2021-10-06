@@ -29,6 +29,11 @@ type HighlightedProjectType = {
   newProject?: boolean
 }
 
+type FundingInfoItemType = {
+  value: string
+  itemName: string
+}
+
 
 const Home: NextPage = () => (
   <Layout>
@@ -132,7 +137,8 @@ export const HighlightedItems: FC<ProjectsType> = ({ items }) => {
   )
 }
 
-export const FundingInfoItem = ({value = '', itemName = ''}) => (
+
+export const FundingInfoItem: FC<FundingInfoItemType> = ({value, itemName}) => (
   <VStack sx={{
     'span:first-of-type': {
       color: 'green.800',
