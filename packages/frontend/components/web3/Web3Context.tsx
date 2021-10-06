@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { ethers, providers } from 'ethers'
 import React, {
@@ -15,7 +16,7 @@ import { clearWalletConnect } from '../../lib/auth'
 // const mobileLinkChoiceKey = 'WALLETCONNECT_DEEPLINK_CHOICE';
 // const injectedWalletKey = "WEB3_CONNECT_CACHED_PROVIDER";
 declare const window: any
-export let provider: any
+// export let provider: any
 export let web3: any
 export let accounts: any
 
@@ -61,13 +62,13 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
     console.log('Web3 Connecting...')
 
     try {
-      const web3Provider = await web3Modal.connect()
+      const web3Provider = await web3Modal.connect()      
       web3Provider && console.log('web3 provider ready...')
 
       const ethersProvider = new ethers.providers.Web3Provider(web3Provider)
       ethersProvider && setProvider(ethersProvider)
-
       console.log('Getting your address...')
+
       const ethAddress = await ethersProvider.getSigner().getAddress()
       ethAddress && console.info('address obtained, web3 set: ', ethAddress)
 
@@ -75,7 +76,7 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
       setIsConnecting(false)
       setIsConnected(true)
     } catch (error) {
-      console.log(error) // eslint-disable-line no-console
+      console.log(error)
       setIsConnecting(false)
       setIsConnected(false)
       onClickDisconnect()
