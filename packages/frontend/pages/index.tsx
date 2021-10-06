@@ -41,7 +41,7 @@ const Home: NextPage = () => (
       <Hero />
     </Box>
     <Box id="benefits" d="flex" flexFlow="column wrap" justifyContent="center" width="100%" minH="100vh">
-      <SimpleGrid columns={{base: 1, lg: 2}} spacing={10} py={{base: '75px', xl: 'auto'}}>
+      <SimpleGrid columns={{base: 1, lg: 2}} spacing={10} py={{base: '75px', xl: 0}}>
         <Benefits type="fundee" />
         <Benefits type="funder" />
       </SimpleGrid>
@@ -118,6 +118,7 @@ export const HighlightedItems: FC<ProjectsType> = ({ items }) => {
       </HStack>
     </Box>
   ))
+
   return (
     <Box>
       <Heading as="h2" size="2xl" variant="secondary">Check out the projects...</Heading>
