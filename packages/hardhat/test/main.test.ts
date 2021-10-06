@@ -26,6 +26,8 @@ let CROWDFUND_STATUES = {
 const minimumLimit = "99999000000000000000000"; // 99999 ETH
 
 const deadline = Date.now();
+const operatorEquity = 5;
+const poolId = "0x48656c6c6f20576f726c64210000000000000000000000000000000000000000";
 
 const TOKEN_SCALE = 1000;
 
@@ -83,13 +85,12 @@ describe("Crowdfund via Proxy from Factory", () => {
           let deploymentEvent, gasUsed;
 
           beforeEach(async () => {
-            const operatorEquity = 5;
             const tokenFactory = await ethers.getContractFactory("ExampleERC20Token")
             token = await tokenFactory.deploy("Token", "TK")
             const deployTx = await factory.createCrowdfund(
               [creatorWallet.address, fundingRecipient.address, token.address],
               [BigNumber.from(operatorEquity), BigNumber.from(minimumLimit), deadline],
-              "0x48656c6c6f20576f726c64210000000000000000000000000000000000000000"
+              poolId
             );
             const receipt = await deployTx.wait();
             gasUsed = receipt.gasUsed;
@@ -116,7 +117,7 @@ describe("Crowdfund via Proxy from Factory", () => {
               await ethers.getContractAt("CrowdfundProxy", proxyAddress)
             ).deployed();
 
-            await token.setOperator(proxy.address)
+            await token.makeOperator(proxy.address)
 
             callableProxy = await (
               await ethers.getContractAt("CrowdfundLogic", proxyAddress)
@@ -126,35 +127,25 @@ describe("Crowdfund via Proxy from Factory", () => {
           it("creates an event log for the deployment", async () => {
             const eventData = deploymentEvent.args;
             expect(eventData.crowdfundProxy).to.eq(proxy.address);
-            expect(eventData.name).to.eq(name);
-            expect(eventData.symbol).to.eq(symbol);
-            expect(eventData.operator).to.eq(creatorWallet.address);
+            expect(eventData.fundingParams).to.eql([BigNumber.from(operatorEquity), BigNumber.from(minimumLimit), BigNumber.from(deadline)]);
+            expect(eventData.addresses).to.eql([creatorWallet.address, fundingRecipient.address, token.address]);
           });
 
           it("deletes parameters used during deployment", async () => {
-            const {
-              name,
-              symbol,
-              operator,
-              minimumLimit,
-              operatorPercent,
-            } = await factory.parameters();
+            const addresses = await factory.getAddresses();
+            const fundingparams = await factory.getFundingParams();
+            const poolId = await factory.getPoolId();
 
-            expect(name).to.eq("");
-            expect(symbol).to.eq("");
-            expect(operator).to.eq(
-              "0x0000000000000000000000000000000000000000"
-            );
-            expect(minimumLimit.toString()).to.eq("0");
-            expect(operatorPercent.toString()).to.eq("0");
+            expect(addresses).to.have.lengthOf(0);
+            expect(fundingparams).to.have.lengthOf(0);
+            expect(poolId).to.eq('0x0000000000000000000000000000000000000000000000000000000000000000');
           });
 
           it("it deploys a proxy with the correct data", async () => {
             expect(await proxy.logic()).to.eq(logic.address);
-            expect(await callableProxy.name()).to.eq(name);
-            expect(await callableProxy.symbol()).to.eq(symbol);
-            expect(await callableProxy.operator()).to.eq(creatorWallet.address);
-            expect(await callableProxy.operatorPercent()).to.eq("5");
+            // expect(await callableProxy.addresses()).to.eq([creatorWallet.address, fundingRecipient.address, token.address]);
+            // expect(await callableProxy.fundingParams()).to.eq([BigNumber.from(operatorEquity), BigNumber.from(minimumLimit), deadline]);
+            expect(await callableProxy.poolId()).to.eq(poolId);
           });
           describe("#redeemableFromTokens", () => {
             describe("scenarios", () => {
@@ -228,7 +219,7 @@ describe("Crowdfund via Proxy from Factory", () => {
                       .mul(TOKEN_SCALE)
                       .toString();
 
-                    expect((await callableProxy.totalSupply()).toString()).eq(
+                    expect((await token.totalSupply()).toString()).eq(
                       tokenAmount
                     );
                   });
