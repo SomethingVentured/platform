@@ -23,7 +23,11 @@ export const Layout: React.FC<Props> = ({
       <link href="https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Ubuntu:wght@300;400&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet" />
     </Head>
     <Navbar />
-    <Container className="wrapper" width={{base: '100%', lg: '100vw'}} maxWidth={{base: 'unset', xl: '1200px'}} pb={20}>
+    <Container position="relative" className="wrapper" width={{base: '100%', lg: '100vw'}} maxWidth={{base: 'unset', xl: 'unset'}} mt={14} px={0} pb={20} align="center" zIndex={100} sx={{
+      '& > div': {
+        textAlign: 'left'
+      }
+    }}>
       {children}
     </Container>
     <Footer />

@@ -16,18 +16,26 @@ export const svTheme = extendTheme({
           zIndex: 2000,
         },
       },
-      'h1, h2, h3, h4': {},
-      h3: {
-        fontSize: {base: '16px', md: '20px'}
-      },
-      // styles for the `a`
       a: {
-        color: 'green.500',
+        color: 'green.400',
         transition: 'color 0.2s ease',
         _hover: {
           color: 'yellow.800',
         },
       },
+      '#WEB3_CONNECT_MODAL_ID > div': {
+        zIndex: 3000,
+      }
+    },
+  },
+  fonts: {
+    heading: 'Abril Fatface, cursive',
+    subHeading: 'Amatic SC',
+    body: 'Ubuntu',
+  },
+  textStyles: {
+    h3: {
+      fontSize: {base: '16px', md: '20px'}
     },
   },
   components: {
@@ -39,6 +47,15 @@ export const svTheme = extendTheme({
       },
       // Styles for the size variations
       sizes: {
+        sm: {
+          fontFamily: 'body'
+        },
+        md: {
+          fontFamily: 'body'
+        },
+        lg: {
+          fontFamily: 'body'
+        },
         xl: {
           mt: '10px',
           mb: 3,
@@ -70,15 +87,22 @@ export const svTheme = extendTheme({
           _hover: {
             color: 'yellow.700'
           }
+        },
+        small: {
+          color: 'green.500',
+          fontFamily: 'body',
+          fontSize: ['sm'],
+          fontWeight: '500'
+        }
+      }
+    },
+    Link: {
+      baseStyle: {
+        transition: 'color 0.2s ease',
+        _hover: {
+          textDecoration: 'none',
         }
       }
     }
-    // Button: {
-    //   baseStyle: {
-    //     backgroundColor: "white",
-    //     borderRadius: 0,
-    //     mb: 3
-    //   }
-    // }
   },
 })

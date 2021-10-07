@@ -1,7 +1,6 @@
 import { ChevronDownIcon, ChevronRightIcon, CloseIcon, HamburgerIcon } from '@chakra-ui/icons'
 import {
   Box,
-  Button,
   Collapse,
   Flex,
   Icon,
@@ -16,7 +15,12 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import React from 'react'
+
+import { useWeb3 } from '../lib/hooks'
+import { ConnectButton } from './web3'
+
 
 interface NavItem {
   label: string
@@ -33,60 +37,12 @@ interface NavChildren {
   href?: string
 }
 
-const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Fund',
-    children: [
-      {
-        label: 'Fund a project',
-        subLabel: 'Find projects to invest in',
-        href: '#',
-      },
-      {
-        label: 'Get funding',
-        subLabel: 'Get funding & build a community for your project',
-        href: '#',
-      },
-    ],
-  },
-  {
-    label: 'About',
-    children: [
-      {
-        label: 'How does it work',
-        subLabel: 'Learn more about our platform',
-        href: '#',
-      },
-      {
-        label: 'Who we are',
-        subLabel: 'A band of Web3 & DAO maxis',
-        href: '#',
-      },
-    ],
-  },
-  // {
-  //   label: 'Learn Design',
-  //   href: '#',
-  // },
-  // {
-  //   label: 'Hire Designers',
-  //   href: '#',
-  // },
-]
-
-const headerStyles = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: ['100%', '100vw'],
-  backdropFilter: 'blur(7px)',
-  boxShadow: '0 0 8px rgba(0,0,0,0.4)',
-  transition: 'all 0.2s ease',
-  zIndex: 2000
-}
-
 export const Navbar: React.FC = () => {
   const { isOpen, onToggle } = useDisclosure()
+  const {
+    address,
+  } = useWeb3()
+
   return (
     <Box className="header" sx={headerStyles} backgroundColor={isOpen ? 'white' : 'rgba(255,255,255, 0.8)'}>
       <Flex align="center" justifyContent="space-between" py={2} px={8}>
@@ -99,31 +55,22 @@ export const Navbar: React.FC = () => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} align="center">
-          <Link href="/">
-            <Image src="/assets/logo.png" maxW="100px"/>
-          </Link>
+          <NextLink href="/" passHref >
+              <Image src="/assets/logo.png" maxW="100px" />
+          </NextLink>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
         </Flex>
 
-        <Stack flex={{ base: 1, md: 0 }} justify="flex-end" direction="row" spacing={6}>
-          <Button as="a" fontSize="xs" fontWeight={400} variant="link" href="#">
-            Sign In
-          </Button>
-          <Button
-            display={{ base: 'none', md: 'inline-flex' }}
-            fontSize="xs"
-            fontWeight={600}
-            color="white"
-            bg="green.700"
-            href="#"
-            _hover={{
-              bg: 'green.300',
-            }}
-          >
-            Sign Up
-          </Button>
+        <Stack flex={{ base: 1, md: 1 }} justify="flex-end" direction="row" align="center" spacing={2}>
+          {address && (
+            <Box fontWeight="500" color="gray.700" fontSize="sm" zIndex={200} sx={{ a: { color: 'green.500' } }}>
+              {'Account: '} <NextLink href="/account">{`${address.substr(0, 8,)}`}</NextLink>
+            </Box>
+          )}
+
+          <ConnectButton />
         </Stack>
       </Flex>
 
@@ -135,8 +82,8 @@ export const Navbar: React.FC = () => {
 }
 
 const DesktopNav = () => {
-  const linkColor = useColorModeValue('gray.600', 'gray.200')
-  const linkHoverColor = useColorModeValue('gray.800', 'white')
+  const linkColor = useColorModeValue('green.500', 'gray.200')
+  const linkHoverColor = useColorModeValue('yellow.900', 'white')
   const popoverContentBgColor = useColorModeValue('white', 'gray.800')
 
   return (
@@ -144,21 +91,23 @@ const DesktopNav = () => {
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger="hover" placement="bottom-start">
-            <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize="sm"
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Link>
-            </PopoverTrigger>
+            <NextLink href={navItem.href ?? '#'} passHref>
+              <PopoverTrigger>
+                <Link
+                  p={2}
+                  href={navItem.href ?? '#'}
+                  fontSize="sm"
+                  fontWeight={500}
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: 'none',
+                    color: linkHoverColor,
+                  }}
+                >
+                  {navItem.label}
+                </Link>
+              </PopoverTrigger>
+            </NextLink>
 
             {navItem.children && (
               <PopoverContent border={0} boxShadow="xl" bg={popoverContentBgColor} p={4} rounded="xl" minW="sm">
@@ -177,34 +126,36 @@ const DesktopNav = () => {
 }
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => (
-  <Link
-    href={href}
-    role="group"
-    display="block"
-    p={2}
-    rounded="md"
-    _hover={{ bg: useColorModeValue('green.50', 'gray.900') }}
-  >
-    <Stack direction="row" align="center">
-      <Box>
-        <Text transition="all .3s ease" _groupHover={{ color: 'green.600' }} fontWeight={500}>
-          {label}
-        </Text>
-        <Text fontSize="sm">{subLabel}</Text>
-      </Box>
-      <Flex
-        transition="all .3s ease"
-        transform="translateX(-10px)"
-        opacity={0}
-        _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-        justify="flex-end"
-        align="center"
-        flex={1}
-      >
-        <Icon color="green.600" w={5} h={5} as={ChevronRightIcon} />
-      </Flex>
-    </Stack>
-  </Link>
+  <NextLink href={href ?? '#'} passHref >
+    <Link
+      href={href}
+      role="group"
+      display="block"
+      p={2}
+      rounded="md"
+      _hover={{ bg: useColorModeValue('green.50', 'gray.900') }}
+    >
+      <Stack direction="row" align="center">
+        <Box>
+          <Text transition="all .3s ease" _groupHover={{ color: 'green.600' }} fontWeight={500}>
+            {label}
+          </Text>
+          <Text fontSize="sm" color="gray.500">{subLabel}</Text>
+        </Box>
+        <Flex
+          transition="all .3s ease"
+          transform="translateX(-10px)"
+          opacity={0}
+          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+          justify="flex-end"
+          align="center"
+          flex={1}
+        >
+          <Icon color="green.600" w={5} h={5} as={ChevronRightIcon} />
+        </Flex>
+      </Stack>
+    </Link>
+  </NextLink>
 )
 
 const MobileNav = () => (
@@ -263,4 +214,63 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
       </Collapse>
     </Stack>
   )
+}
+
+const NAV_ITEMS: Array<NavItem> = [
+  {
+    label: 'Fund',
+    children: [
+      {
+        label: 'Get Funded',
+        subLabel: 'Get funded & build a community for your project',
+        href: '/fund',
+      },
+      {
+        label: 'Create a project',
+        subLabel: 'Seen enough? Ready to launch? Start here.',
+        href: '/account/create',
+      },
+    ],
+  },
+  {
+    label: 'Invest',
+    children: [
+      {
+        label: 'Why SomethingVentured',
+        subLabel: 'What sets us apart from all the other Crowdfunding platforms',
+        href: '/invest'
+      },
+      {
+        label: 'Browse projects',
+        subLabel: 'Check out all of the projects on the platform.',
+        href: '/ventures'
+      }
+    ]
+  },
+  {
+    label: 'About',
+    children: [
+      {
+        label: 'How does it work',
+        subLabel: 'Learn more about our platform',
+        href: '/learn',
+      },
+      {
+        label: 'Who we are',
+        subLabel: 'A band of Web3 & DAO maxis',
+        href: '/about',
+      },
+    ],
+  },
+]
+
+const headerStyles = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: ['100%', '100vw'],
+  backdropFilter: 'blur(7px)',
+  boxShadow: ['none', '0 0 8px rgba(0,0,0,0.4)'],
+  transition: 'all 0.2s ease',
+  zIndex: 2000
 }
