@@ -55,15 +55,9 @@ export const Navbar: React.FC = () => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} align="center">
-<<<<<<< HEAD
-          <Link href="/">
-            <Image src="/assets/logo.png" maxW="100px" />
-          </Link>
-=======
           <NextLink href="/" passHref >
               <Image src="/assets/logo.png" maxW="100px" />
           </NextLink>
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -71,13 +65,8 @@ export const Navbar: React.FC = () => {
 
         <Stack flex={{ base: 1, md: 1 }} justify="flex-end" direction="row" align="center" spacing={2}>
           {address && (
-<<<<<<< HEAD
-            <Box fontWeight="500" color="gray.700" fontSize="sm" zIndex={200} sx={{a: { color: 'green.500'}}}>
-              {'Account: '} <Link href="/account">{`${address.substr(0, 8,)}`}</Link>
-=======
             <Box fontWeight="500" color="gray.700" fontSize="sm" zIndex={200} sx={{ a: { color: 'green.500' } }}>
               {'Account: '} <NextLink href="/account">{`${address.substr(0, 8,)}`}</NextLink>
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
             </Box>
           )}
 
