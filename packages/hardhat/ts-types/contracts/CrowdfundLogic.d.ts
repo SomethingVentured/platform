@@ -24,13 +24,15 @@ interface CrowdfundLogicInterface extends ethers.utils.Interface {
   functions: {
     "addresses(uint256)": FunctionFragment;
     "closeFunding()": FunctionFragment;
-    "contribute(address,uint256)": FunctionFragment;
+    "contribute(address)": FunctionFragment;
+    "contributions(address)": FunctionFragment;
     "fundingParams(uint256)": FunctionFragment;
     "logic()": FunctionFragment;
     "naming(uint256)": FunctionFragment;
     "poolId()": FunctionFragment;
     "redeem()": FunctionFragment;
     "status()": FunctionFragment;
+    "totalContributions()": FunctionFragment;
   };
 
   encodeFunctionData(
@@ -41,9 +43,10 @@ interface CrowdfundLogicInterface extends ethers.utils.Interface {
     functionFragment: "closeFunding",
     values?: undefined
   ): string;
+  encodeFunctionData(functionFragment: "contribute", values: [string]): string;
   encodeFunctionData(
-    functionFragment: "contribute",
-    values: [string, BigNumberish]
+    functionFragment: "contributions",
+    values: [string]
   ): string;
   encodeFunctionData(
     functionFragment: "fundingParams",
@@ -57,6 +60,10 @@ interface CrowdfundLogicInterface extends ethers.utils.Interface {
   encodeFunctionData(functionFragment: "poolId", values?: undefined): string;
   encodeFunctionData(functionFragment: "redeem", values?: undefined): string;
   encodeFunctionData(functionFragment: "status", values?: undefined): string;
+  encodeFunctionData(
+    functionFragment: "totalContributions",
+    values?: undefined
+  ): string;
 
   decodeFunctionResult(functionFragment: "addresses", data: BytesLike): Result;
   decodeFunctionResult(
@@ -64,6 +71,10 @@ interface CrowdfundLogicInterface extends ethers.utils.Interface {
     data: BytesLike
   ): Result;
   decodeFunctionResult(functionFragment: "contribute", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "contributions",
+    data: BytesLike
+  ): Result;
   decodeFunctionResult(
     functionFragment: "fundingParams",
     data: BytesLike
@@ -73,6 +84,10 @@ interface CrowdfundLogicInterface extends ethers.utils.Interface {
   decodeFunctionResult(functionFragment: "poolId", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "redeem", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "status", data: BytesLike): Result;
+  decodeFunctionResult(
+    functionFragment: "totalContributions",
+    data: BytesLike
+  ): Result;
 
   events: {
     "Contribution(address,uint256)": EventFragment;
@@ -147,9 +162,13 @@ export class CrowdfundLogic extends BaseContract {
 
     contribute(
       backer: string,
-      amount: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
+
+    contributions(
+      arg0: string,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     fundingParams(
       arg0: BigNumberish,
@@ -167,6 +186,8 @@ export class CrowdfundLogic extends BaseContract {
     ): Promise<ContractTransaction>;
 
     status(overrides?: CallOverrides): Promise<[number]>;
+
+    totalContributions(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   addresses(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
@@ -177,9 +198,10 @@ export class CrowdfundLogic extends BaseContract {
 
   contribute(
     backer: string,
-    amount: BigNumberish,
     overrides?: PayableOverrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
+
+  contributions(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   fundingParams(
     arg0: BigNumberish,
@@ -198,16 +220,16 @@ export class CrowdfundLogic extends BaseContract {
 
   status(overrides?: CallOverrides): Promise<number>;
 
+  totalContributions(overrides?: CallOverrides): Promise<BigNumber>;
+
   callStatic: {
     addresses(arg0: BigNumberish, overrides?: CallOverrides): Promise<string>;
 
     closeFunding(overrides?: CallOverrides): Promise<void>;
 
-    contribute(
-      backer: string,
-      amount: BigNumberish,
-      overrides?: CallOverrides
-    ): Promise<void>;
+    contribute(backer: string, overrides?: CallOverrides): Promise<void>;
+
+    contributions(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     fundingParams(
       arg0: BigNumberish,
@@ -223,6 +245,8 @@ export class CrowdfundLogic extends BaseContract {
     redeem(overrides?: CallOverrides): Promise<void>;
 
     status(overrides?: CallOverrides): Promise<number>;
+
+    totalContributions(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   filters: {
@@ -271,9 +295,10 @@ export class CrowdfundLogic extends BaseContract {
 
     contribute(
       backer: string,
-      amount: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
+
+    contributions(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     fundingParams(
       arg0: BigNumberish,
@@ -291,6 +316,8 @@ export class CrowdfundLogic extends BaseContract {
     ): Promise<BigNumber>;
 
     status(overrides?: CallOverrides): Promise<BigNumber>;
+
+    totalContributions(overrides?: CallOverrides): Promise<BigNumber>;
   };
 
   populateTransaction: {
@@ -305,8 +332,12 @@ export class CrowdfundLogic extends BaseContract {
 
     contribute(
       backer: string,
-      amount: BigNumberish,
       overrides?: PayableOverrides & { from?: string | Promise<string> }
+    ): Promise<PopulatedTransaction>;
+
+    contributions(
+      arg0: string,
+      overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     fundingParams(
@@ -328,5 +359,9 @@ export class CrowdfundLogic extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     status(overrides?: CallOverrides): Promise<PopulatedTransaction>;
+
+    totalContributions(
+      overrides?: CallOverrides
+    ): Promise<PopulatedTransaction>;
   };
 }

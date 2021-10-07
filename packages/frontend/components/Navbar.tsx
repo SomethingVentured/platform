@@ -15,6 +15,7 @@ import {
   useColorModeValue,
   useDisclosure,
 } from '@chakra-ui/react'
+import NextLink from 'next/link'
 import React from 'react'
 
 import { useWeb3 } from '../lib/hooks'
@@ -41,14 +42,14 @@ const NAV_ITEMS: Array<NavItem> = [
     label: 'Fund',
     children: [
       {
-        label: 'Fund a project',
-        subLabel: 'Find projects to invest in',
-        href: '#',
+        label: 'Get funded',
+        subLabel: 'Get funded & build a community for your project',
+        href: '/create',
       },
       {
-        label: 'Get funding',
-        subLabel: 'Get funding & build a community for your project',
-        href: '#',
+        label: 'Fund a project',
+        subLabel: 'Find projects to invest in',
+        href: '/invest',
       },
     ],
   },
@@ -58,12 +59,12 @@ const NAV_ITEMS: Array<NavItem> = [
       {
         label: 'How does it work',
         subLabel: 'Learn more about our platform',
-        href: '#',
+        href: '/learn',
       },
       {
         label: 'Who we are',
         subLabel: 'A band of Web3 & DAO maxis',
-        href: '#',
+        href: '/about',
       },
     ],
   },
@@ -106,9 +107,15 @@ export const Navbar: React.FC = () => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} align="center">
+<<<<<<< HEAD
           <Link href="/">
             <Image src="/assets/logo.png" maxW="100px" />
           </Link>
+=======
+          <NextLink href="/" passHref >
+              <Image src="/assets/logo.png" maxW="100px" />
+          </NextLink>
+>>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -116,8 +123,13 @@ export const Navbar: React.FC = () => {
 
         <Stack flex={{ base: 1, md: 1 }} justify="flex-end" direction="row" align="center" spacing={2}>
           {address && (
+<<<<<<< HEAD
             <Box fontWeight="500" color="gray.700" fontSize="sm" zIndex={200} sx={{a: { color: 'green.500'}}}>
               {'Account: '} <Link href="/account">{`${address.substr(0, 8,)}`}</Link>
+=======
+            <Box fontWeight="500" color="gray.700" fontSize="sm" zIndex={200} sx={{ a: { color: 'green.500' } }}>
+              {'Account: '} <NextLink href="/account">{`${address.substr(0, 8,)}`}</NextLink>
+>>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
             </Box>
           )}
 
@@ -142,21 +154,23 @@ const DesktopNav = () => {
       {NAV_ITEMS.map((navItem) => (
         <Box key={navItem.label}>
           <Popover trigger="hover" placement="bottom-start">
-            <PopoverTrigger>
-              <Link
-                p={2}
-                href={navItem.href ?? '#'}
-                fontSize="sm"
-                fontWeight={500}
-                color={linkColor}
-                _hover={{
-                  textDecoration: 'none',
-                  color: linkHoverColor,
-                }}
-              >
-                {navItem.label}
-              </Link>
-            </PopoverTrigger>
+            <NextLink href={navItem.href ?? '#'} passHref>
+              <PopoverTrigger>
+                <Link
+                  p={2}
+                  href={navItem.href ?? '#'}
+                  fontSize="sm"
+                  fontWeight={500}
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: 'none',
+                    color: linkHoverColor,
+                  }}
+                >
+                  {navItem.label}
+                </Link>
+              </PopoverTrigger>
+            </NextLink>
 
             {navItem.children && (
               <PopoverContent border={0} boxShadow="xl" bg={popoverContentBgColor} p={4} rounded="xl" minW="sm">
@@ -175,34 +189,36 @@ const DesktopNav = () => {
 }
 
 const DesktopSubNav = ({ label, href, subLabel }: NavItem) => (
-  <Link
-    href={href}
-    role="group"
-    display="block"
-    p={2}
-    rounded="md"
-    _hover={{ bg: useColorModeValue('green.50', 'gray.900') }}
-  >
-    <Stack direction="row" align="center">
-      <Box>
-        <Text transition="all .3s ease" _groupHover={{ color: 'green.600' }} fontWeight={500}>
-          {label}
-        </Text>
-        <Text fontSize="sm">{subLabel}</Text>
-      </Box>
-      <Flex
-        transition="all .3s ease"
-        transform="translateX(-10px)"
-        opacity={0}
-        _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
-        justify="flex-end"
-        align="center"
-        flex={1}
-      >
-        <Icon color="green.600" w={5} h={5} as={ChevronRightIcon} />
-      </Flex>
-    </Stack>
-  </Link>
+  <NextLink href={href ?? '#'} passHref >
+    <Link
+      href={href}
+      role="group"
+      display="block"
+      p={2}
+      rounded="md"
+      _hover={{ bg: useColorModeValue('green.50', 'gray.900') }}
+    >
+      <Stack direction="row" align="center">
+        <Box>
+          <Text transition="all .3s ease" _groupHover={{ color: 'green.600' }} fontWeight={500}>
+            {label}
+          </Text>
+          <Text fontSize="sm">{subLabel}</Text>
+        </Box>
+        <Flex
+          transition="all .3s ease"
+          transform="translateX(-10px)"
+          opacity={0}
+          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+          justify="flex-end"
+          align="center"
+          flex={1}
+        >
+          <Icon color="green.600" w={5} h={5} as={ChevronRightIcon} />
+        </Flex>
+      </Stack>
+    </Link>
+  </NextLink>
 )
 
 const MobileNav = () => (

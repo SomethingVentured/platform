@@ -32,8 +32,8 @@ contract CrowdfundStorage {
     // Represents the current state of the campaign.
     Status public status;
     uint256 internal reentrancy_status;
-    mapping(address=>uint256) contributions;
-    uint256 totalContributions;
+    mapping(address=>uint256) public contributions;
+    uint256 public totalContributions;
 
     // ============ Delegation logic ============
     address public logic;

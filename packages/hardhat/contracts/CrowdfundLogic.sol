@@ -51,16 +51,15 @@ contract CrowdfundLogic is CrowdfundStorage {
      *  amount of ETH sent in the transaction.
      * @dev Emits the Contribution event.
      */
-    function contribute(address payable backer, uint256 amount)
+    function contribute(address payable backer)
         external
         payable
         nonReentrant
     {
         require(block.timestamp<fundingParams[2], "Crowdfund: Funding period is over");
-        require(amount == msg.value, "Crowdfund: Amount is not value sent");
-        contributions[backer]+=amount;
-        totalContributions+=amount;
-        emit Contribution(backer, amount);
+        contributions[backer]+=msg.value;
+        totalContributions+=msg.value;
+        emit Contribution(backer, msg.value);
     }
 
     /**
@@ -71,9 +70,9 @@ contract CrowdfundLogic is CrowdfundStorage {
         require(block.timestamp>fundingParams[2] && address(this).balance<fundingParams[1], "Crowdfund: Funding has either not closed or has succeeded in meeting its goal");
         require(address(this).balance > 0, "Crowdfund: No ETH available to redeem");
         
+        sendValue(payable(msg.sender), contributions[msg.sender]);
         totalContributions-=contributions[msg.sender];
         contributions[msg.sender] = 0;
-        sendValue(payable(msg.sender), contributions[msg.sender]);
         emit Redeemed(msg.sender);
     }
 

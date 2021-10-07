@@ -25,7 +25,7 @@ const SocialButton = ({ children, label, href }: { children: ReactNode; label: s
 )
 
 export const Footer: React.FC = () => (
-    <Box bg={useColorModeValue('gray.50', 'gray.900')} color={useColorModeValue('gray.700', 'gray.200')}>
+    <Box position="fixed" overflowY="visible" bottom={0} left={0} minW="100vw" zIndex={0}>
       <Container
         as={Stack}
         maxW="6xl"
@@ -34,6 +34,8 @@ export const Footer: React.FC = () => (
         spacing={4}
         justify={{ base: 'center', md: 'space-between' }}
         align={{ base: 'center', md: 'center' }}
+        bg="rgba(255,255,255,0.7)" backdropFilter="blur(7px)"
+        sx={{zIndex: 50}}
       >
         <Text>© 2021 SomethingVentured</Text>
         <Stack direction="row" spacing={6}>
@@ -48,6 +50,12 @@ export const Footer: React.FC = () => (
           </SocialButton>
         </Stack>
       </Container>
+      <Box position="absolute" bottom={0} left={0} width="100vw" minH="700px" zIndex={0} opacity={0.2} sx={{
+        backgroundImage: '/assets/page-bg-trees.jpg',
+        backgroundPositionY: 'top',
+        backgroundSize: '100%',
+        backgroundRepeat: 'no-repeat'
+      }} />
     </Box>
   )
 
