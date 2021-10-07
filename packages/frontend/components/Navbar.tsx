@@ -118,7 +118,7 @@ export const Navbar: React.FC = () => {
         <Stack flex={{ base: 1, md: 1 }} justify="flex-end" direction="row" align="center" spacing={2}>
           {address && (
             <Box fontWeight="500" color="gray.700" fontSize="sm" zIndex={200} sx={{ a: { color: 'green.500' } }}>
-              {'Account: '} <Link href="/account">{`${address.substr(0, 8,)}`}</Link>
+              {'Account: '} <NextLink href="/account">{`${address.substr(0, 8,)}`}</NextLink>
             </Box>
           )}
 
