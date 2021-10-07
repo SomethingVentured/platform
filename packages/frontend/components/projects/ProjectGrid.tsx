@@ -11,7 +11,7 @@ export const ProjectGrid = ({ items = [] }: { items: Array<ProjectType> }) => {
     ))
 
     return (
-        <Box>
+        <Box maxW="5xl" mx="auto">
             <Heading as="h2" size="2xl" variant="secondary">Check out the projects...</Heading>
             <Box
                 className="hightlightedItems"
@@ -80,4 +80,4 @@ export const highlightedProjects = [
       newProject: true,
     },
   ]
-  
+

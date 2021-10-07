@@ -47,6 +47,15 @@ export const svTheme = extendTheme({
       },
       // Styles for the size variations
       sizes: {
+        sm: {
+          fontFamily: 'body'
+        },
+        md: {
+          fontFamily: 'body'
+        },
+        lg: {
+          fontFamily: 'body'
+        },
         xl: {
           mt: '10px',
           mb: 3,

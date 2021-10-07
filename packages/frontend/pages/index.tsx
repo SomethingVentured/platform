@@ -63,7 +63,7 @@ const Home: NextPage = () => (
         <HeroBody content="Find patrons for your DAO or Start-up. Build a community, give perks to reward loyal supporters and raise the capital you need to launch your project. Or, find a project to help get off the ground." />
         <HeroCTA
           cta1Text="Create a project"
-          cta1Url="/create"
+          cta1Url="/fund"
           cta1Hint="DAO it!"
           cta2Text="Find a project"
           cta2Url="/invest"
@@ -72,7 +72,7 @@ const Home: NextPage = () => (
         <HeroFooter text="Learn more" target="#benefits" inPage />
       </Hero>
     </Box>
-    <Box id="benefits" d="flex" flexFlow="column wrap" justifyContent="center" width="100%" minH="100vh">
+    <Box id="benefits" d="flex" flexFlow="column wrap" justifyContent="center" width="100%" minH="100vh" maxW="5xl">
       <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10} py={{ base: '75px', xl: 0 }}>
 >>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
         <Benefits type="fundee" />
