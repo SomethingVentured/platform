@@ -10,16 +10,17 @@ import React, { ReactNode } from 'react'
 
 type BenefitsType = {
   type: string
+  compact?: boolean
 }
 
-export const Benefits: React.FC<BenefitsType> = ({type}) => (
+export const Benefits: React.FC<BenefitsType> = ({type, compact}) => (
       <Container maxW="5xl" zIndex={10} position="relative">
         <Stack direction={{ base: 'column', lg: 'row' }}>
           <Stack
             flex={1}
             color="gray.400"
             justify={{ lg: 'center' }}
-            py={{ base: 4, md: 20, xl: 36 }}>
+            py={{ base: compact ? 0 : 4, md: compact ? 0 : 20, xl: compact ? 0 : 36 }}>
             <Box mb={{ base: 8, md: 10 }}>
               <Text
                 fontFamily="heading"

@@ -8,160 +8,175 @@ import {
   Link,
   Stack,
   Text,
-  useColorModeValue,
 } from '@chakra-ui/react'
-// import { keyframes } from '@emotion/react'
-import React from 'react'
-import { FiChevronDown } from 'react-icons/fi'
+import NextLink from 'next/link'
+import { FC, ReactNode } from 'react'
+import { FiChevronDown, FiChevronRight } from 'react-icons/fi'
 
-// const bounce = keyframes`
-//   from, 20%, 53%, 80%, to {
-//     transform: translate3d(0,0,0);
-//   }
 
-//   40%, 43% {
-//     transform: translate3d(0, 20px, 0);
-//   }
+export const Hero = ({ children }: { children: ReactNode }) => (
+  <>
+    <Container className="hero" maxW={{ base: '100%', xl: '3xl' }}>
+      <Stack as={Box} textAlign="center" spacing={{ base: 8, md: 10 }} py={{ base: 0, md: 36 }}>
+        {children}
+      </Stack>
+    </Container>
+  </>
+)
 
-//   70% {
-//     transform: translate3d(0, 15px, 0);
-//   }
+type HeroHeadingContentType = {
+  part1: string
+  part2: string
+}
+export const HeroHeading: FC<HeroHeadingContentType> = ({ part1, part2 }) => (
+  <Heading fontWeight={600} fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }} lineHeight="110%">
+    {part1} <br />
+    <Text as="span" color="green.700">
+      {part2}
+    </Text>
+  </Heading>
+)
 
-//   90% {
-//     transform: translate3d(0,10px,0);
-//   }
-// `
-// type ScrollObserverType = {
-//   element: string
-// }
+type HeroBodyContentType = {
+  content: string
+}
+export const HeroBody: FC<HeroBodyContentType> = ({content}) => (
+  <Text color="gray.500" fontSize={{ base: 'sm', xl: 'xl' }}>
+    {content}
+  </Text>
+)
 
-// export const scrollObserver = (element: any) => {
-//   const [scrolling, setScrolling] = useState(false)
+type HeroCTAContentType = {
+  cta1Text: string
+  cta1Url: string
+  cta1Hint?: string
+  cta2Text?: string
+  cta2Url?: string
+  cta2Hint?: string
+}
+export const HeroCTA: FC<HeroCTAContentType> = ({
+  cta1Text,
+  cta1Url,
+  cta1Hint,
+  cta2Text,
+  cta2Url,
+  cta2Hint
+}) => (
+  <Stack direction="row" spacing={3} align="center" alignSelf="center" position="relative" color="green.800" overflow="visible">
+    {cta1Hint && (
+      <Box position="absolute" top={0} left={0} d={{ base: 'none', md: 'block' }}>
+        <Icon
+          as={Arrow}
+          color="green.800"
+          w={71}
+          position="absolute"
+          left={-55}
+          top="-20px"
+          transform="scale(-1) rotate(10deg)"
+        />
+        <Text
+          fontSize="3xl"
+          fontFamily="Amatic SC"
+          position="absolute"
+          left="-85px"
+          top="-10px"
+          transform="rotate(-10deg)"
+        >
+          {cta1Hint}
+        </Text>
+      </Box>
+    )}
+    <NextLink href={cta1Url ?? '#'}>
+    <Button
+      colorScheme="yellow"
+      bg="yellow.800"
+      color="white"
+      rounded="full"
+      size="sm"
+      px={6}
+      _hover={{
+        bg: 'green.500',
+      }}
+    >
+      {cta1Text}
+    </Button>
+    </NextLink>
+    {cta2Text && (
+      <NextLink href={cta2Url ?? '#'}>
+        <Button
+          colorScheme="green"
+          bg="green.700"
+          rounded="full"
+          size="sm"
+          px={6}
+          _hover={{
+            bg: 'green.500',
+          }}
+        >
+          {cta2Text}
+        </Button>
+      </NextLink>
+    )}
+    {cta2Hint && (
+      <Box position="absolute" top={0} right={0} d={{ base: 'none', md: 'block' }}>
+        <Icon
+          as={Arrow}
+          color="green.800"
+          w={71}
+          position="absolute"
+          right={-71}
+          top="10px"
+        />
+        <Text
+          fontSize="3xl"
+          fontFamily="Amatic SC"
+          position="absolute"
+          right="-100px"
+          top="-30px"
+          transform="rotate(10deg)"
+        >
+          {cta2Hint}
+        </Text>
+      </Box>
+    )}
+  </Stack>
+)
 
-//   typeof window === 'undefined' && false
+type HeroFooterContentType = {
+  text: string
+  target: string
+  inPage?: boolean 
+}
 
-//   const observer = new IntersectionObserver(entries => {
-//     setScrolling(true);
-//   });
-//   return observer.observe(document.querySelector(element));
-// }
-
-// Tell the observer which elements to track
-
-export const Hero: React.FC = () => (
-    <>
-      <Container className="hero" maxW={{base: '100%', xl: '3xl'}}>
-        <Stack as={Box} textAlign="center" spacing={{ base: 8, md: 10 }} py={{ base: 0, md: 36 }}>
-          <Heading fontWeight={600} fontSize={{ base: '3xl', sm: '4xl', md: '6xl' }} lineHeight="110%">
-            Something Ventured... <br />
-            <Text as="span" color="green.700">
-              Something Gained!
-            </Text>
-          </Heading>
-          <Text color="gray.500" fontSize={{base: 'sm', xl: 'xl'}}>
-            Find patrons for your DAO or Start-up. Build a community, give perks to reward loyal supporters and raise
-            the capital you need to launch your project. Or, find a project to help get off the ground.
-          </Text>
-          <Stack direction="row" spacing={3} align="center" alignSelf="center" position="relative" color="green.800" overflow="visible">
-            <Box position="absolute" top={0} left={0} d={{base: 'none', md: 'block'}}>
-              <Icon
-                as={Arrow}
-                color={useColorModeValue('green.800', 'green.300')}
-                w={71}
-                position="absolute"
-                left={-55}
-                top="-20px"
-                transform="scale(-1) rotate(10deg)"
-              />
-              <Text
-                fontSize="3xl"
-                fontFamily="Amatic SC"
-                position="absolute"
-                left="-85px"
-                top="-10px"
-                transform="rotate(-10deg)"
-              >
-                DAO it!
-              </Text>
-            </Box>
-            <Button
-              colorScheme="yellow"
-              bg="yellow.800"
-              color="white"
-              rounded="full"
-              size="sm"
-              px={6}
-              _hover={{
-                bg: 'green.500',
-              }}
-            >
-              Get Funded
-            </Button>
-            <Button
-              colorScheme="green"
-              bg="green.700"
-              rounded="full"
-              size="sm"
-              px={6}
-              _hover={{
-                bg: 'green.500',
-              }}
-            >
-              Get Funding
-            </Button>
-            <Box position="absolute" top={0} right={0} d={{base: 'none', md: 'block'}}>
-              <Icon
-                as={Arrow}
-                color={useColorModeValue('green.800', 'green.300')}
-                w={71}
-                position="absolute"
-                right={-71}
-                top="10px"
-              />
-              <Text
-                fontSize="3xl"
-                fontFamily="Amatic SC"
-                position="absolute"
-                right="-100px"
-                top="-30px"
-                transform="rotate(10deg)"
-              >
-                Good feels!
-              </Text>
-            </Box>
-          </Stack>
-          <Stack direction="row" spacing={3} align="center" justifySelf="flex-end" alignSelf="center" position="relative">
-            <Link href="#benefits" colorScheme="green" sx={{
-              d: 'flex',
-              color: 'green.600',
-              justifyItems: 'flex-start',
-              alignItems: 'center',
-              flexFlow: 'column',
-              fontFamily: 'Amatic SC',
-              fontSize: {base: '40px', xl: '60px'},
-              textAlign: 'center',
-              transition: 'all 0.2s ease',
-              _hover: {
-                color: 'green.700',
-                opacity: 0.09
-              }
-            }}>
-              <Box>
-                Learn more
-              </Box>
-              <Box sx={{
-                // animation: `${bounce} 2s ease infinite`,
-                color: 'green.500',
-                fontSize: {base: '40px', lg: '60px'},
-                mt: {base: 0, xl: 30},
-                transform: 'translate3d(0 70px 0)' 
-              }}><FiChevronDown /></Box>
-            </Link>
-          </Stack>
-        </Stack>
-      </Container>
-    </>
-  )
+export const HeroFooter: FC<HeroFooterContentType> = ({ text, target, inPage }) => (
+  <Stack direction="row" spacing={3} align="center" justifySelf="flex-end" alignSelf="center" position="relative">
+    <Link href={target} colorScheme="green" sx={{
+      d: 'flex',
+      color: 'green.600',
+      justifyItems: inPage ? 'center' : 'flex-start',
+      alignItems: 'center',
+      flexFlow: inPage ? 'column' : 'row',
+      fontFamily: 'Amatic SC',
+      fontSize: { base: '40px', xl: '60px' },
+      textAlign: 'center',
+      transition: 'all 0.2s ease',
+      _hover: {
+        color: 'green.700',
+        opacity: 0.09
+      }
+    }}>
+      <Box>
+        {text}
+      </Box>
+      <Box sx={{
+        // animation: `${bounce} 2s ease infinite`,
+        color: 'green.500',
+        fontSize: { base: '40px', lg: '60px' },
+        mt: { base: 0, xl: inPage ? 30 : 0 },
+      }}>{inPage ? <FiChevronDown /> : <FiChevronRight />}</Box>
+    </Link>
+  </Stack>
+)
 
 const Arrow = createIcon({
   displayName: 'Arrow',
