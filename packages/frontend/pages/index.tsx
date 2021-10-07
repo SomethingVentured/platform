@@ -14,10 +14,10 @@ const Home: NextPage = () => (
         <HeroHeading part1="Something ventured..." part2="Something gained!" />
         <HeroBody content="Find patrons for your DAO or Start-up. Build a community, give perks to reward loyal supporters and raise the capital you need to launch your project. Or, find a project to help get off the ground." />
         <HeroCTA
-          cta1Text="Create project"
+          cta1Text="Create a project"
           cta1Url="/create"
           cta1Hint="DAO it!"
-          cta2Text="Get funding"
+          cta2Text="Find a project"
           cta2Url="/invest"
           cta2Hint="Good Feels!"
         />

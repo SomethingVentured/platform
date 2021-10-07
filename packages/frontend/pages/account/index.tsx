@@ -35,7 +35,7 @@ export const CreateAccount: FC = () => (
   <Box d="flex" flexFlow="row wrap" alignItems="center" width="100%" height="100%" minH="100vh">
     <Hero>
       <HeroHeading part1="Looks like you haven't ..." part2="done anything here yet" />
-      <Box>Maybe you&apos;re an investor looking to <NextLink href="/investors">back a new start-up</NextLink> or perhaps you&apos;re looking to <NextLink href="/create">get backing</NextLink> for your venture?</Box>
+      <Box>Maybe you&apos;re an investor looking to <NextLink href="/invest">back a new start-up</NextLink> or perhaps you&apos;re looking to <NextLink href="/create">get funding</NextLink> for your venture?</Box>
       <HeroCTA
           cta1Text="Create a project"
           cta1Url="/create"
