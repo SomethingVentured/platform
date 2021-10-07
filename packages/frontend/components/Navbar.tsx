@@ -37,58 +37,6 @@ interface NavChildren {
   href?: string
 }
 
-const NAV_ITEMS: Array<NavItem> = [
-  {
-    label: 'Fund',
-    children: [
-      {
-        label: 'Get funded',
-        subLabel: 'Get funded & build a community for your project',
-        href: '/create',
-      },
-      {
-        label: 'Fund a project',
-        subLabel: 'Find projects to invest in',
-        href: '/invest',
-      },
-    ],
-  },
-  {
-    label: 'About',
-    children: [
-      {
-        label: 'How does it work',
-        subLabel: 'Learn more about our platform',
-        href: '/learn',
-      },
-      {
-        label: 'Who we are',
-        subLabel: 'A band of Web3 & DAO maxis',
-        href: '/about',
-      },
-    ],
-  },
-  // {
-  //   label: 'Learn Design',
-  //   href: '#',
-  // },
-  // {
-  //   label: 'Hire Designers',
-  //   href: '#',
-  // },
-]
-
-const headerStyles = {
-  position: 'fixed',
-  top: 0,
-  left: 0,
-  width: ['100%', '100vw'],
-  backdropFilter: 'blur(7px)',
-  boxShadow: ['none', '0 0 8px rgba(0,0,0,0.4)'],
-  transition: 'all 0.2s ease',
-  zIndex: 2000
-}
-
 export const Navbar: React.FC = () => {
   const { isOpen, onToggle } = useDisclosure()
   const {
@@ -107,15 +55,9 @@ export const Navbar: React.FC = () => {
           />
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} align="center">
-<<<<<<< HEAD
-          <Link href="/">
-            <Image src="/assets/logo.png" maxW="100px" />
-          </Link>
-=======
           <NextLink href="/" passHref >
               <Image src="/assets/logo.png" maxW="100px" />
           </NextLink>
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
           </Flex>
@@ -123,13 +65,8 @@ export const Navbar: React.FC = () => {
 
         <Stack flex={{ base: 1, md: 1 }} justify="flex-end" direction="row" align="center" spacing={2}>
           {address && (
-<<<<<<< HEAD
-            <Box fontWeight="500" color="gray.700" fontSize="sm" zIndex={200} sx={{a: { color: 'green.500'}}}>
-              {'Account: '} <Link href="/account">{`${address.substr(0, 8,)}`}</Link>
-=======
             <Box fontWeight="500" color="gray.700" fontSize="sm" zIndex={200} sx={{ a: { color: 'green.500' } }}>
               {'Account: '} <NextLink href="/account">{`${address.substr(0, 8,)}`}</NextLink>
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
             </Box>
           )}
 
@@ -203,7 +140,7 @@ const DesktopSubNav = ({ label, href, subLabel }: NavItem) => (
           <Text transition="all .3s ease" _groupHover={{ color: 'green.600' }} fontWeight={500}>
             {label}
           </Text>
-          <Text fontSize="sm">{subLabel}</Text>
+          <Text fontSize="sm" color="gray.500">{subLabel}</Text>
         </Box>
         <Flex
           transition="all .3s ease"
@@ -277,4 +214,63 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
       </Collapse>
     </Stack>
   )
+}
+
+const NAV_ITEMS: Array<NavItem> = [
+  {
+    label: 'Fund',
+    children: [
+      {
+        label: 'Get Funded',
+        subLabel: 'Get funded & build a community for your project',
+        href: '/fund',
+      },
+      {
+        label: 'Create a project',
+        subLabel: 'Seen enough? Ready to launch? Start here.',
+        href: '/account/create',
+      },
+    ],
+  },
+  {
+    label: 'Invest',
+    children: [
+      {
+        label: 'Why SomethingVentured',
+        subLabel: 'What sets us apart from all the other Crowdfunding platforms',
+        href: '/invest'
+      },
+      {
+        label: 'Browse projects',
+        subLabel: 'Check out all of the projects on the platform.',
+        href: '/ventures'
+      }
+    ]
+  },
+  {
+    label: 'About',
+    children: [
+      {
+        label: 'How does it work',
+        subLabel: 'Learn more about our platform',
+        href: '/learn',
+      },
+      {
+        label: 'Who we are',
+        subLabel: 'A band of Web3 & DAO maxis',
+        href: '/about',
+      },
+    ],
+  },
+]
+
+const headerStyles = {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: ['100%', '100vw'],
+  backdropFilter: 'blur(7px)',
+  boxShadow: ['none', '0 0 8px rgba(0,0,0,0.4)'],
+  transition: 'all 0.2s ease',
+  zIndex: 2000
 }

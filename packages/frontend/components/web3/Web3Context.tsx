@@ -1,9 +1,5 @@
-<<<<<<< HEAD
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-=======
 /* eslint-disable @typescript-eslint/no-unused-expressions, @typescript-eslint/no-explicit-any, no-console */
 
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
 import WalletConnectProvider from '@walletconnect/web3-provider'
 import { ethers, providers } from 'ethers'
 import React, {
@@ -11,12 +7,8 @@ import React, {
   useCallback,
   useEffect,
   useRef,
-<<<<<<< HEAD
-  useState} from 'react'
-=======
   useState
 } from 'react'
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
 import Web3Modal from 'web3modal'
 
 import { CONFIG } from '../../config'
@@ -38,10 +30,7 @@ export type ConnectWeb3ContextType = {
   isConnected: boolean
   address: string | null
   modalOpen: boolean
-<<<<<<< HEAD
-=======
   svUserAddress: string | null
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
 }
 
 interface ConnectWeb3ProviderOptions {
@@ -56,10 +45,6 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
   const [address, setAddress] = useState<string | null>(null)
   const [modalOpen] = useState(false)
 
-<<<<<<< HEAD
-  const calledOnce = useRef<boolean>(false)
-
-=======
 
   const calledOnce = useRef<boolean>(false)
 
@@ -108,9 +93,9 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
   }
   const svUserAddress = findAuthUser(users, address)
 
-  
-  
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
+
+
+
   const onClickDisconnect = useCallback(async () => {
     if (web3Modal === false) return
     accounts = null
@@ -129,11 +114,7 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
     console.log('Web3 Connecting...')
 
     try {
-<<<<<<< HEAD
-      const web3Provider = await web3Modal.connect()      
-=======
       const web3Provider = await web3Modal.connect()
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
       web3Provider && console.log('web3 provider ready...')
 
       const ethersProvider = new ethers.providers.Web3Provider(web3Provider)
@@ -173,12 +154,8 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
         isConnected,
         isConnecting,
         address,
-<<<<<<< HEAD
-        modalOpen
-=======
         modalOpen,
         svUserAddress
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
       }}
     >
       {children}
@@ -188,21 +165,13 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
 
 export const ConnectWeb3Context = createContext<ConnectWeb3ContextType>({
   provider: null,
-<<<<<<< HEAD
-  onClickConnect: async () => {},
-=======
   onClickConnect: async () => { },
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
   onClickDisconnect: () => undefined,
   isConnecting: false,
   isConnected: false,
   address: null,
-<<<<<<< HEAD
-  modalOpen: false
-=======
   modalOpen: false,
   svUserAddress: null
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
 })
 
 const providerOptions = {
@@ -214,11 +183,7 @@ const providerOptions = {
   }
 }
 
-<<<<<<< HEAD
-const web3Modal = 
-=======
 const web3Modal =
->>>>>>> 6d4fc0546b8df9f90b25f13519ece247d49801fc
   typeof window !== 'undefined' &&
   new Web3Modal({
     network: 'mumbai',

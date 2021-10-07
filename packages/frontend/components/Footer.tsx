@@ -25,18 +25,22 @@ const SocialButton = ({ children, label, href }: { children: ReactNode; label: s
 )
 
 export const Footer: React.FC = () => (
-    <Box position="fixed" overflowY="visible" bottom={0} left={0} minW="100vw" zIndex={0}>
-      <Container
-        as={Stack}
-        maxW="6xl"
-        py={4}
-        direction={{ base: 'column', md: 'row' }}
-        spacing={4}
-        justify={{ base: 'center', md: 'space-between' }}
-        align={{ base: 'center', md: 'center' }}
-        bg="rgba(255,255,255,0.7)" backdropFilter="blur(7px)"
-        sx={{zIndex: 50}}
-      >
+  <Box position="fixed" overflowY="visible" bottom={0} left={0} minW="100vw" zIndex={0}>
+    <Container
+      as={Stack}
+      maxW="100vw"
+      py={4}
+      direction={{ base: 'column', md: 'row' }}
+      spacing={4}
+      justify={{ base: 'center', md: 'space-between' }}
+      align={{ base: 'center', md: 'center' }}
+      sx={{
+        zIndex: 50,
+        background: 'rgba(255,255,255,0.7)',
+        backdropFilter: 'blur(7px)'
+      }}
+    >
+      <Box as={Stack} direction="row" justify="space-between" mx="auto" width="100%" maxW="5xl">
         <Text>© 2021 SomethingVentured</Text>
         <Stack direction="row" spacing={6}>
           <SocialButton label="Twitter" href="#">
@@ -49,13 +53,14 @@ export const Footer: React.FC = () => (
             <FaInstagram />
           </SocialButton>
         </Stack>
-      </Container>
-      <Box position="absolute" bottom={0} left={0} width="100vw" minH="700px" zIndex={0} opacity={0.2} sx={{
-        backgroundImage: '/assets/page-bg-trees.jpg',
-        backgroundPositionY: 'top',
-        backgroundSize: '100%',
-        backgroundRepeat: 'no-repeat'
-      }} />
-    </Box>
-  )
+      </Box>
+    </Container>
+    <Box position="absolute" bottom={0} left={0} width="100vw" minH="700px" zIndex={0} opacity={0.2} sx={{
+      backgroundImage: '/assets/page-bg-trees.jpg',
+      backgroundPositionY: 'top',
+      backgroundSize: '100%',
+      backgroundRepeat: 'no-repeat'
+    }} />
+  </Box>
+)
 
