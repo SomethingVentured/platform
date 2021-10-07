@@ -16,11 +16,6 @@ import { Benefits, Hero, HeroBody, HeroCTA, HeroFooter,HeroHeading } from '../co
 import { Layout } from '../components/Layout'
 import { highlightedProjects,ProjectGrid } from '../components/projects/ProjectGrid'
 
-type FundingInfoItemType = {
-  value: string
-  itemName: string
-}
-
 
 <<<<<<< HEAD
 type ProjectFundingType = {
