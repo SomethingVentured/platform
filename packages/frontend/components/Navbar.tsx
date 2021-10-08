@@ -218,31 +218,31 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Fund',
+    label: 'Venture',
     children: [
       {
-        label: 'Get Funded',
+        label: 'Learn more',
         subLabel: 'Get funded & build a community for your project',
-        href: '/fund',
+        href: '/learn',
       },
       {
-        label: 'Create a project',
+        label: 'New venture',
         subLabel: 'Seen enough? Ready to launch? Start here.',
         href: '/account/create',
       },
     ],
   },
   {
-    label: 'Invest',
+    label: 'Fund',
     children: [
       {
-        label: 'Why SomethingVentured',
+        label: 'Funding with SV',
         subLabel: 'What sets us apart from all the other Crowdfunding platforms',
-        href: '/invest'
+        href: '/fund'
       },
       {
-        label: 'Browse projects',
-        subLabel: 'Check out all of the projects on the platform.',
+        label: 'Browse ventures',
+        subLabel: 'Check out all of the ventures on the platform.',
         href: '/ventures'
       }
     ]
@@ -251,9 +251,9 @@ const NAV_ITEMS: Array<NavItem> = [
     label: 'About',
     children: [
       {
-        label: 'How does it work',
+        label: 'The SV Platform',
         subLabel: 'Learn more about our platform',
-        href: '/learn',
+        href: '/platform',
       },
       {
         label: 'Who we are',

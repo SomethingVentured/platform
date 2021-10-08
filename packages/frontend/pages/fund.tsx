@@ -1,44 +1,47 @@
 import { Box, SimpleGrid } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-// import { useRouter } from 'next/router'
 import { FC } from 'react'
 
-import { Benefits,Hero, HeroBody, HeroCTA, HeroHeading } from '../components'
+import { Benefits, Hero, HeroBody, HeroHeading } from '../components'
 import { Layout } from '../components/Layout'
 
+const Fund: NextPage = () =>
+// const { address, provider, svUserAddress } = useWeb3()
+// const router = useRouter()
 
-const Fund: NextPage = () => (
-        <Layout>
-            <CreateContent />
-        </Layout>
-    )
+(
+    <Layout>
+        <Funding />
+    </Layout>
+)
+
 // eslint-disable-next-line import/no-default-export
 export default Fund
 
-export const CreateContent: FC = () => (
+export const Funding: FC = () =>
+// const { address, provider } = useWeb3()
+(
     <>
         <Box d="flex" flexFlow="row wrap" alignItems="center" width="100%" height="auto">
             <Hero>
-                <HeroHeading part1="Fund with SV..." part2="Launch & build community!" />
-                <HeroBody content="Don&apos;t just get funding for your new venture, reward your supporters with perks and rewards (that you define), bootstrap liquidity for your token and plug your funding campaign right into your Moloch DAO." />
-                <HeroCTA
-                    cta1Text="Create a project"
-                    cta1Url="/account/create"
-                    cta1Hint="#DreamBig!"
-                    cta2Text="Find a project"
-                    cta2Url="/ventures"
-                    cta2Hint="Investors"
-                />
+                <HeroHeading part1="Invest with SV..." part2="Get perks and rewards!" />
+                <HeroBody content={'There\'s a ton of benefits to investing in a new venture through the SomethingVentured platform.'} />
+                {/* <HeroCTA
+            cta1Text="Start"
+            cta1Url="#start"
+        // cta1Hint="Best decision"
+        /> */}
+                {/* <Box sx={{ button: { fontSize: 40 } }}>
+                    {!address && !provider && <ConnectButton /> }
+                </Box> */}
 
             </Hero>
         </Box>
-        <Box id="whysv" d="flex" flexFlow="column wrap" justifyContent="flex-start" width="100%">
+        <Box id="whysv" d="flex" flexFlow="column wrap" justifyContent="flex-start" width="100%" maxW="5xl">
             <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10} py={{ base: '75px', xl: 0 }}>
-                <Benefits type="fundee" compact />
-                {/* <Box /> */}
+                <Benefits type="funder" compact />
+                <Box />
             </SimpleGrid>
         </Box>
     </>
-
 )
-

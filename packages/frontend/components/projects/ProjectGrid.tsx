@@ -7,7 +7,7 @@ import { Card } from './Card'
 
 export const ProjectGrid = ({ items = [] }: { items: Array<ProjectType> }) => {
     const listItems = items.map((item) => (
-        <Card item={item} />
+        <Card key={`card-${item.id}`} item={item} />
     ))
 
     return (

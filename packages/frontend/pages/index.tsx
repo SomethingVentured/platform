@@ -1,24 +1,24 @@
-import { Box, Button, Link,SimpleGrid, VStack } from '@chakra-ui/react'
+import { Box, Button, Link, SimpleGrid, VStack } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { FiChevronDown } from 'react-icons/fi'
 
-import { Benefits, Hero, HeroBody, HeroCTA, HeroFooter,HeroHeading } from '../components'
+import { Benefits, Hero, HeroBody, HeroCTA, HeroFooter, HeroHeading } from '../components'
 import { Layout } from '../components/Layout'
-import { highlightedProjects,ProjectGrid } from '../components/projects/ProjectGrid'
+import { highlightedProjects, ProjectGrid } from '../components/projects/ProjectGrid'
 
 
 const Home: NextPage = () => (
   <Layout>
     <Box d="flex" flexFlow="row wrap" alignItems="center" width="100%" height="100%" minH="100vh">
       <Hero>
-        <HeroHeading part1="Something ventured..." part2="Something gained!" />
+        <HeroHeading part1="Something Ventured..." part2="Something gained!" />
         <HeroBody content="Find patrons for your DAO or Start-up. Build a community, give perks to reward loyal supporters and raise the capital you need to launch your project. Or, find a project to help get off the ground." />
         <HeroCTA
-          cta1Text="Create a project"
-          cta1Url="/fund"
+          cta1Text="Create a venture"
+          cta1Url="/account/create"
           cta1Hint="DAO it!"
-          cta2Text="Find a project"
-          cta2Url="/invest"
+          cta2Text="Find a venture"
+          cta2Url="/ventures"
           cta2Hint="Good Feels!"
         />
         <HeroFooter text="Learn more" target="#benefits" inPage />
@@ -41,18 +41,18 @@ const Home: NextPage = () => (
         }
       }}>
 
-          <Link href="/#highlights">
-            <VStack spacing={[5, 10]}>
-              <Button variant="cta">Example projects</Button>
-              <Box sx={{
-                // animation: `${bounce} 2s ease infinite`,
-                color: 'green.500',
-                fontSize: '60px',
-                transform: 'translate3d(0 70px 0)'
-              }}><FiChevronDown />
-              </Box>
-            </VStack>
-          </Link>
+        <Link href="/#highlights">
+          <VStack spacing={[5, 10]}>
+            <Button variant="cta">Example projects</Button>
+            <Box sx={{
+              // animation: `${bounce} 2s ease infinite`,
+              color: 'green.500',
+              fontSize: '60px',
+              transform: 'translate3d(0 70px 0)'
+            }}><FiChevronDown />
+            </Box>
+          </VStack>
+        </Link>
       </Box>
     </Box>
     <Box id="highlights" d="flex" alignItems="center" width="100%" minH="100vh">
