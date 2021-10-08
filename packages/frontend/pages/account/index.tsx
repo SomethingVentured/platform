@@ -34,11 +34,11 @@ export const Dashboard: FC = () => (
 export const CreateAccount: FC = () => (
   <Box d="flex" flexFlow="row wrap" alignItems="center" width="100%" height="100%" minH="100vh">
     <Hero>
-      <HeroHeading part1="Looks like you haven't ..." part2="done anything here yet" />
-      <HeroBody content="Your account is created when you first invest or create a project on the platform." />
+      <HeroHeading part1="Looks like you haven't..." part2="done anything here yet" />
+      <HeroBody content="Your account is created when you first fund or create a venture on the platform." />
       <Box>Id magna eiusmod ullamco anim duis laborum laboris consequat elit nulla. Pariatur irure proident sit qui fugiat ipsum nulla aliquip aute. Nostrud quis et reprehenderit amet laborum excepteur elit reprehenderit Lorem pariatur labore exercitation ipsum nisi.</Box>
       <HeroCTA
-          cta1Text="Create a project"
+          cta1Text="Create a venture"
           cta1Url="/account/create"
           cta1Hint="#DreamBig!"
           cta2Text="Fund a venture"
