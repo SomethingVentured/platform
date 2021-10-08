@@ -104,6 +104,21 @@ export const svTheme = extendTheme({
           textDecoration: 'none',
         }
       }
+    },
+    Tag: {
+      defaultProps: {
+        colorScheme: 'green'
+      },
+      baseStyle: {
+        color: 'white',
+        backgroundColor: 'green.700'
+      },
+      variants: {
+        venture: {
+          color: 'white',
+          backgroundColor: 'green.700'
+        }
+      }
     }
   },
 })
