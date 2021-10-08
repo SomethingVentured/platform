@@ -1,6 +1,6 @@
 import { Box } from '@chakra-ui/react'
 import type { NextPage } from 'next'
-import NextLink from 'next/link'
+// import NextLink from 'next/link'
 import { FC } from 'react'
 
 import { Hero, HeroBody, HeroCTA,HeroHeading } from '../../components'
@@ -36,12 +36,12 @@ export const CreateAccount: FC = () => (
     <Hero>
       <HeroHeading part1="Looks like you haven't ..." part2="done anything here yet" />
       <HeroBody content="Your account is created when you first invest or create a project on the platform." />
-      <Box>Maybe you&apos;re an investor looking to <NextLink href="/invest">back a new start-up</NextLink> or perhaps you&apos;re looking to <NextLink href="/fund">get funding</NextLink> for your venture? </Box>
+      <Box>Id magna eiusmod ullamco anim duis laborum laboris consequat elit nulla. Pariatur irure proident sit qui fugiat ipsum nulla aliquip aute. Nostrud quis et reprehenderit amet laborum excepteur elit reprehenderit Lorem pariatur labore exercitation ipsum nisi.</Box>
       <HeroCTA
           cta1Text="Create a project"
           cta1Url="/account/create"
           cta1Hint="#DreamBig!"
-          cta2Text="Fund a project"
+          cta2Text="Fund a venture"
           cta2Url="/ventures"
           cta2Hint="Investors"
         />
