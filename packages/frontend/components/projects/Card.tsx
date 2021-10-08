@@ -62,7 +62,7 @@ export const Card: FC<ProjectsType> = ({ item }) => (
 
     <HStack>
       <Tag>{item.network}</Tag>
-      <Tag>{item.daoType}</Tag>
+      <Tag >{item.daoType}</Tag>
     </HStack>
   </Box>
 )
@@ -70,12 +70,12 @@ export const Card: FC<ProjectsType> = ({ item }) => (
 export const FundingInfoItem: FC<FundingInfoItemType> = ({ value, itemName }) => (
   <VStack sx={{
     'span:first-of-type': {
-      color: 'green.800',
+      color: 'green.700',
       fontFamily: 'heading',
       fontSize: ['30px', '40px']
     },
     'span + span': {
-      color: 'gray.400',
+      color: 'gray.500',
       fontSize: ['16px', '16px'],
       mt: '-0.5rem',
       textTransform: 'uppercase'

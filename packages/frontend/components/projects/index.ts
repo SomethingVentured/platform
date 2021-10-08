@@ -1,2 +1,2 @@
 export { Card } from './Card'
-export { ProjectGrid } from './ProjectGrid'
+export { highlightedProjects, ProjectGrid } from './ProjectGrid'

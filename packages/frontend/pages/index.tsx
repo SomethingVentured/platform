@@ -56,7 +56,7 @@ const Home: NextPage = () => (
       </Box>
     </Box>
     <Box id="highlights" d="flex" alignItems="center" width="100%" minH="100vh">
-      <ProjectGrid items={highlightedProjects} />
+      <ProjectGrid items={highlightedProjects} simple={false}/>
     </Box>
   </Layout>
 )
