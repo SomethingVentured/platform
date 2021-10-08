@@ -56,7 +56,9 @@ export const Navbar: React.FC = () => {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} align="center">
           <NextLink href="/" passHref >
+            <Link href="/">
               <Image src="/assets/logo.png" maxW="100px" />
+              </Link>
           </NextLink>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
@@ -265,7 +267,7 @@ const NAV_ITEMS: Array<NavItem> = [
 ]
 
 const headerStyles = {
-  position: 'fixed',
+  position: 'sticky',
   top: 0,
   left: 0,
   width: ['100%', '100vw'],

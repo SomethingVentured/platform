@@ -31,12 +31,17 @@ export type ConnectWeb3ContextType = {
   address: string | null
   modalOpen: boolean
   svUserAddress: string | null
+  users: Array<UserType> | null
 }
 
 interface ConnectWeb3ProviderOptions {
   children: React.ReactElement
 }
-
+type UserType = {
+  name: string
+  address: string
+  projectName: string
+}
 
 export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
   const [provider, setProvider] = useState<providers.Web3Provider | null>(null)
@@ -77,12 +82,6 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
     },
   ]
 
-  type UserType = {
-    name: string
-    address: string
-    projectName: string
-  }
-
   // temporary simulated login to test logics
   const findAuthUser = (data: Array<UserType>, curUser: string | null) => {
     const authUser = data.filter((user) => {
@@ -92,8 +91,6 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
     return authUser[0]?.address
   }
   const svUserAddress = findAuthUser(users, address)
-
-
 
 
   const onClickDisconnect = useCallback(async () => {
@@ -155,7 +152,8 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
         isConnecting,
         address,
         modalOpen,
-        svUserAddress
+        svUserAddress,
+        users
       }}
     >
       {children}
@@ -171,7 +169,8 @@ export const ConnectWeb3Context = createContext<ConnectWeb3ContextType>({
   isConnected: false,
   address: null,
   modalOpen: false,
-  svUserAddress: null
+  svUserAddress: null,
+  users: null
 })
 
 const providerOptions = {

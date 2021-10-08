@@ -21,6 +21,7 @@ export const svTheme = extendTheme({
         transition: 'color 0.2s ease',
         _hover: {
           color: 'yellow.800',
+          cursor: 'pointer',
         },
       },
       '#WEB3_CONNECT_MODAL_ID > div': {
