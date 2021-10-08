@@ -1,22 +1,25 @@
 import { Box, chakra, Container, Stack, Text, useColorModeValue, VisuallyHidden } from '@chakra-ui/react'
 import React, { ReactNode } from 'react'
-import { FaInstagram, FaTwitter, FaYoutube } from 'react-icons/fa'
+import { FaDiscord, FaTwitter, FaYoutube } from 'react-icons/fa'
 
 const SocialButton = ({ children, label, href }: { children: ReactNode; label: string; href: string }) => (
   <chakra.button
-    bg={useColorModeValue('blackAlpha.100', 'whiteAlpha.100')}
+    bg={useColorModeValue('none', 'green.700')}
     rounded="full"
-    w={8}
-    h={8}
+    color="green.700"
+    fontSize="22px"
+    w={10}
+    h={10}
     cursor="pointer"
     as="a"
     href={href}
     display="inline-flex"
     alignItems="center"
     justifyContent="center"
-    transition="background 0.3s ease"
+    transition="all 0.2s ease"
     _hover={{
-      bg: useColorModeValue('blackAlpha.200', 'whiteAlpha.200'),
+      bg: 'green.700',
+      color: 'white'
     }}
   >
     <VisuallyHidden>{label}</VisuallyHidden>
@@ -25,9 +28,11 @@ const SocialButton = ({ children, label, href }: { children: ReactNode; label: s
 )
 
 export const Footer: React.FC = () => (
-  <Box position="fixed" overflowY="visible" bottom={0} left={0} minW="100vw" zIndex={0}>
+  <Box position="fixed" overflowY="visible" bottom={0} left={0} minW="100vw" zIndex={100}>
     <Container
       as={Stack}
+      pos="relative"
+      height="75px"
       maxW="100vw"
       py={4}
       direction={{ base: 'column', md: 'row' }}
@@ -36,31 +41,25 @@ export const Footer: React.FC = () => (
       align={{ base: 'center', md: 'center' }}
       sx={{
         zIndex: 50,
-        background: 'rgba(255,255,255,0.7)',
+        backgroundColor: 'rgba(255,255,255, 0.8)',
         backdropFilter: 'blur(7px)'
       }}
     >
-      <Box as={Stack} direction="row" justify="space-between" mx="auto" width="100%" maxW="5xl">
+      <Box as={Stack} direction="row" align="center" justify="space-between" mx="auto" width="100%" maxW="100vw" px={8} color="green.700">
         <Text>© 2021 SomethingVentured</Text>
-        <Stack direction="row" spacing={6}>
+        <Stack direction="row" spacing={3}>
+          <SocialButton label="Discord" href="#">
+            <FaDiscord />
+          </SocialButton>
           <SocialButton label="Twitter" href="#">
             <FaTwitter />
           </SocialButton>
           <SocialButton label="YouTube" href="#">
             <FaYoutube />
           </SocialButton>
-          <SocialButton label="Instagram" href="#">
-            <FaInstagram />
-          </SocialButton>
         </Stack>
       </Box>
     </Container>
-    <Box position="absolute" bottom={0} left={0} width="100vw" minH="700px" zIndex={0} opacity={0.2} sx={{
-      backgroundImage: '/assets/page-bg-trees.jpg',
-      backgroundPositionY: 'top',
-      backgroundSize: '100%',
-      backgroundRepeat: 'no-repeat'
-    }} />
   </Box>
 )
 

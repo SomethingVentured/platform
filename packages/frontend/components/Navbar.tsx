@@ -56,7 +56,9 @@ export const Navbar: React.FC = () => {
         </Flex>
         <Flex flex={{ base: 1 }} justify={{ base: 'center', md: 'start' }} align="center">
           <NextLink href="/" passHref >
+            <Link href="/">
               <Image src="/assets/logo.png" maxW="100px" />
+              </Link>
           </NextLink>
           <Flex display={{ base: 'none', md: 'flex' }} ml={10}>
             <DesktopNav />
@@ -218,31 +220,31 @@ const MobileNavItem = ({ label, children, href }: NavItem) => {
 
 const NAV_ITEMS: Array<NavItem> = [
   {
-    label: 'Fund',
+    label: 'Venture',
     children: [
       {
-        label: 'Get Funded',
+        label: 'Learn more',
         subLabel: 'Get funded & build a community for your project',
-        href: '/fund',
+        href: '/learn',
       },
       {
-        label: 'Create a project',
+        label: 'New venture',
         subLabel: 'Seen enough? Ready to launch? Start here.',
         href: '/account/create',
       },
     ],
   },
   {
-    label: 'Invest',
+    label: 'Fund',
     children: [
       {
-        label: 'Why SomethingVentured',
+        label: 'Funding with SV',
         subLabel: 'What sets us apart from all the other Crowdfunding platforms',
-        href: '/invest'
+        href: '/fund'
       },
       {
-        label: 'Browse projects',
-        subLabel: 'Check out all of the projects on the platform.',
+        label: 'Browse ventures',
+        subLabel: 'Check out all of the ventures on the platform.',
         href: '/ventures'
       }
     ]
@@ -251,9 +253,9 @@ const NAV_ITEMS: Array<NavItem> = [
     label: 'About',
     children: [
       {
-        label: 'How does it work',
+        label: 'The SV Platform',
         subLabel: 'Learn more about our platform',
-        href: '/learn',
+        href: '/platform',
       },
       {
         label: 'Who we are',
@@ -265,7 +267,7 @@ const NAV_ITEMS: Array<NavItem> = [
 ]
 
 const headerStyles = {
-  position: 'fixed',
+  position: 'sticky',
   top: 0,
   left: 0,
   width: ['100%', '100vw'],

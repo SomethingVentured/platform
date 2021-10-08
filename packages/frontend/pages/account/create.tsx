@@ -1,4 +1,17 @@
-import { Box, Heading, HStack, Stack, Text } from '@chakra-ui/react'
+import {
+    Accordion,
+    AccordionButton,
+    AccordionItem,
+    AccordionPanel,
+    Box,
+    FormControl,
+    FormLabel,
+    Heading,
+    HStack,
+    Input,
+    Text,
+    VStack
+} from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
@@ -18,8 +31,6 @@ const Create: NextPage = () => {
         router.push('/account')
     }
 
-
-
     return (
         <Layout>
             {!provider && !address && <LoggedOut />}
@@ -34,14 +45,12 @@ export default Create
 export const LoggedOut: FC = () => (
     <Box d="flex" flexFlow="row wrap" alignItems="center" width="100%" height="auto">
         <Hero>
-            <HeroHeading part1="Create your project..." part2="" />
-            <HeroHeading part1="Before you do that..." part2="You better login 👍" />
+            <HeroHeading part1="Create venture..." part2="Connect to start..." />
             <Box sx={{ button: { fontSize: 40 } }}>
                 <ConnectButton />
             </Box>
         </Hero>
     </Box>
-
 )
 
 
@@ -65,52 +74,77 @@ export const CreateProject: FC = () => {
                 </Box>
             </Box>
             <Box className="steps" width="100%" maxW="5xl">
-                <Stack minW="100%" spacing={0} sx={{
-                    '& > div': {
-                        px: 5,
-                        py: 5
-                    },
-                    '& > div:not(:last-of-type)': {
-                        borderBottomWidth: 0
-                    }
-                }}>
-                    <Box d="flex" flexFlow="row nowrap" alignItems="center" border="1px solid" borderColor="green.700">
-                        <ItemStatus complete />
-                        <Box pl={6}>
-                            <Heading size="md">Project Outline</Heading>
-                            <Text fontSize="sm" color="gray.500">Name your project, describe project, tokenomics &amp; roadmap -  upload an image or video, and establish your project details.</Text>
-                        </Box>
-                    </Box>
-                    <Box d="flex" flexFlow="row nowrap" alignItems="center" border="1px solid" borderColor="green.700">
-                        <ItemStatus complete />
-                        <Box pl={6}>
-                            <Heading size="md">Funding</Heading>
-                            <Text fontSize="sm" color="gray.500">Build out a budget and calculate your financial goals.</Text>
-                        </Box>
-                    </Box>
-                    <Box d="flex" flexFlow="row nowrap" alignItems="center" border="1px solid" borderColor="green.700">
-                        <ItemStatus complete />
-                        <Box pl={6}>
-                            <Heading size="md">Rewards</Heading>
-                            <Text fontSize="sm" color="gray.500">Set your  OnChain rewards.</Text>
-                        </Box>
-                    </Box>
-                    <Box d="flex" flexFlow="row nowrap" alignItems="center" border="1px solid" borderColor="green.700">
-                        <ItemStatus complete />
-                        <Box pl={6}>
-                            <Heading size="md">Story</Heading>
-                            <Text fontSize="sm" color="gray.500">Add a detailed project description and convey your risks and challenges.</Text>
-                        </Box>
-                    </Box>
-                    <Box d="flex" flexFlow="row nowrap" alignItems="center" border="1px solid" borderColor="green.700">
-                        <ItemStatus complete />
-                        <Box pl={6}>
-                            <Heading size="md">DAO Infrastructure</Heading>
-                            <Text fontSize="sm" color="gray.500">Edit your SomethingVentured profile and add collaborators.</Text>
-                        </Box>
-                    </Box>
-                </Stack>
-            </Box>
+                <Accordion>
+                    <AccordionItem>
+                        <AccordionButton d="flex" flexFlow="row nowrap" alignItems="center" textAlign="left" border="1px solid" borderColor="green.700">
+                            <ItemStatus />
+                            <Box pl={6}>
+                                <Heading size="md">Project Outline</Heading>
+                                <Text fontSize="sm" color="gray.500">Name your project, describe project, tokenomics &amp; roadmap -  upload an image or video, and establish your project details.</Text>
+                            </Box>
+                        </AccordionButton>
+                        <AccordionPanel py={10}>
+                            <HStack columns={2} spacing={20} justify="space-between">
+                                <Box maxW="33%" fontSize="14px" color="gray.500">
+                                    <Heading size="sm" color="gray.800">Project Title</Heading>
+                                    <Text>Write a clear, brief title and subtitle to help people quickly understand your project. Both will appear on your project and pre-launch pages.</Text>
+                                    <Text>Potential backers will also see them if your project appears on category pages, search results, or in emails we send to our community.</Text>
+                                </Box>
+                                <VStack flex="1">
+                                    <FormControl id="title">
+                                        <FormLabel>Title</FormLabel>
+                                        <Input type="text" />
+                                    </FormControl>
+                                    <FormControl id="subtitle">
+                                        <FormLabel>Subtitle</FormLabel>
+                                        <Input type="text" />
+                                    </FormControl>
+                                </VStack>
+                            </HStack>
+                        </AccordionPanel>
+                    </AccordionItem>
+                    <AccordionItem>
+                        <AccordionButton d="flex" flexFlow="row nowrap" alignItems="center" textAlign="left" border="1px solid" borderColor="green.700">
+                            <ItemStatus />
+                            <Box pl={6}>
+                                <Heading size="md">Funding</Heading>
+                                <Text fontSize="sm" color="gray.500">Build out a budget and calculate your financial goals.</Text>
+                            </Box>
+                        </AccordionButton>
+                        <AccordionPanel />
+                    </AccordionItem>
+                    <AccordionItem>
+                        <AccordionButton d="flex" flexFlow="row nowrap" alignItems="center" textAlign="left" border="1px solid" borderColor="green.700">
+                            <ItemStatus />
+                            <Box pl={6}>
+                                <Heading size="md">Rewards</Heading>
+                                <Text fontSize="sm" color="gray.500">Set your  OnChain rewards.</Text>
+                            </Box>
+                        </AccordionButton>
+                        <AccordionPanel />
+                    </AccordionItem>
+                    <AccordionItem>
+                        <AccordionButton d="flex" textAlign="left" flexFlow="row nowrap" alignItems="center" border="1px solid" borderColor="green.700">
+                            <ItemStatus />
+                            <Box pl={6}>
+                                <Heading size="md">Story</Heading>
+                                <Text fontSize="sm" color="gray.500">Add a detailed project description and convey your risks and challenges.</Text>
+                            </Box>
+                        </AccordionButton>
+                        <AccordionPanel />
+                    </AccordionItem>
+                    <AccordionItem>
+                        <AccordionButton d="flex" flexFlow="row nowrap" alignItems="center" textAlign="left" border="1px solid" borderColor="green.700">
+                            <ItemStatus />
+                            <Box pl={6}>
+                                <Heading size="md">DAO Infrastructure</Heading>
+                                <Text fontSize="sm" color="gray.500">Edit your SomethingVentured profile and add collaborators.</Text>
+                            </Box>
+                        </AccordionButton>
+                        <AccordionPanel />
+                    </AccordionItem>
+                </Accordion>
+            </Box >
 
             <Box className="support" width="100%" maxW="100vw" bgColor="rgba(39, 103, 73, 0.8)" backdropFilter="blur(3px)" color="white" py={10} mt={10} >
                 <Box maxW="5xl" mx="auto">
@@ -127,12 +161,12 @@ export const CreateProject: FC = () => {
                     </HStack>
                 </Box>
             </Box>
-        </Box>
+        </Box >
     )
 }
 
 type ItemStatusType = {
-    complete: boolean | null
+    complete?: boolean
 }
 export const ItemStatus: FC<ItemStatusType> = ({ complete = false }) => (
     <Box sx={{

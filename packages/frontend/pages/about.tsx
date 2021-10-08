@@ -5,7 +5,7 @@ import type { NextPage } from 'next'
 import { Hero, HeroBody,HeroHeading } from '../components'
 import { Layout } from '../components/Layout'
 
-const About: NextPage = () => 
+const About: NextPage = () =>
     // const router = useRouter()
 
      (
@@ -17,13 +17,13 @@ const About: NextPage = () =>
                     {/* <HeroFooter text="learn more" target="#theTeam" inPage /> */}
                 </Hero>
             </Box>
-            <Box id="theTeam" d="flex" flexFlow="column wrap" justifyContent="center" width="auto">
+            <Box id="theTeam" d="flex" flexFlow="column wrap" justifyContent="center" width="auto" maxW="5xl">
                 <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10} py={{ base: '75px', xl: 0 }}>
-                    <Box>Team member 1</Box>
-                    <Box>Team member 2</Box>
-                    <Box>Team member 3</Box>
-                    <Box>Team member 4</Box>
-                    <Box>Team member 5</Box>
+                    <Box>Michiel</Box>
+                    <Box>Bagsy</Box>
+                    <Box>Fearless</Box>
+                    <Box>Alok</Box>
+                    <Box>lux</Box>
                 </SimpleGrid>
             </Box>
             <Box id="start" d="flex" flexFlow="column wrap" justifyContent="center" width="100%" minH="100vh">
