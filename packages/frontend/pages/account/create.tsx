@@ -2,10 +2,16 @@ import {
     Accordion,
     AccordionButton,
     AccordionItem,
-    AccordionPanel,    Box,
+    AccordionPanel,
+    Box,
+    FormControl,
+    FormLabel,
     Heading,
     HStack,
-    Text} from '@chakra-ui/react'
+    Input,
+    Text,
+    VStack
+} from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
@@ -71,17 +77,35 @@ export const CreateProject: FC = () => {
                 <Accordion>
                     <AccordionItem>
                         <AccordionButton d="flex" flexFlow="row nowrap" alignItems="center" textAlign="left" border="1px solid" borderColor="green.700">
-                            <ItemStatus complete />
+                            <ItemStatus />
                             <Box pl={6}>
                                 <Heading size="md">Project Outline</Heading>
                                 <Text fontSize="sm" color="gray.500">Name your project, describe project, tokenomics &amp; roadmap -  upload an image or video, and establish your project details.</Text>
                             </Box>
                         </AccordionButton>
-                        <AccordionPanel />
+                        <AccordionPanel py={10}>
+                            <HStack columns={2} spacing={20} justify="space-between">
+                                <Box maxW="33%" fontSize="14px" color="gray.500">
+                                    <Heading size="sm" color="gray.800">Project Title</Heading>
+                                    <Text>Write a clear, brief title and subtitle to help people quickly understand your project. Both will appear on your project and pre-launch pages.</Text>
+                                    <Text>Potential backers will also see them if your project appears on category pages, search results, or in emails we send to our community.</Text>
+                                </Box>
+                                <VStack flex="1">
+                                    <FormControl id="title">
+                                        <FormLabel>Title</FormLabel>
+                                        <Input type="text" />
+                                    </FormControl>
+                                    <FormControl id="subtitle">
+                                        <FormLabel>Subtitle</FormLabel>
+                                        <Input type="text" />
+                                    </FormControl>
+                                </VStack>
+                            </HStack>
+                        </AccordionPanel>
                     </AccordionItem>
                     <AccordionItem>
                         <AccordionButton d="flex" flexFlow="row nowrap" alignItems="center" textAlign="left" border="1px solid" borderColor="green.700">
-                            <ItemStatus complete />
+                            <ItemStatus />
                             <Box pl={6}>
                                 <Heading size="md">Funding</Heading>
                                 <Text fontSize="sm" color="gray.500">Build out a budget and calculate your financial goals.</Text>
@@ -91,7 +115,7 @@ export const CreateProject: FC = () => {
                     </AccordionItem>
                     <AccordionItem>
                         <AccordionButton d="flex" flexFlow="row nowrap" alignItems="center" textAlign="left" border="1px solid" borderColor="green.700">
-                            <ItemStatus complete />
+                            <ItemStatus />
                             <Box pl={6}>
                                 <Heading size="md">Rewards</Heading>
                                 <Text fontSize="sm" color="gray.500">Set your  OnChain rewards.</Text>
@@ -101,7 +125,7 @@ export const CreateProject: FC = () => {
                     </AccordionItem>
                     <AccordionItem>
                         <AccordionButton d="flex" textAlign="left" flexFlow="row nowrap" alignItems="center" border="1px solid" borderColor="green.700">
-                            <ItemStatus complete />
+                            <ItemStatus />
                             <Box pl={6}>
                                 <Heading size="md">Story</Heading>
                                 <Text fontSize="sm" color="gray.500">Add a detailed project description and convey your risks and challenges.</Text>
@@ -111,7 +135,7 @@ export const CreateProject: FC = () => {
                     </AccordionItem>
                     <AccordionItem>
                         <AccordionButton d="flex" flexFlow="row nowrap" alignItems="center" textAlign="left" border="1px solid" borderColor="green.700">
-                            <ItemStatus complete />
+                            <ItemStatus />
                             <Box pl={6}>
                                 <Heading size="md">DAO Infrastructure</Heading>
                                 <Text fontSize="sm" color="gray.500">Edit your SomethingVentured profile and add collaborators.</Text>
@@ -142,7 +166,7 @@ export const CreateProject: FC = () => {
 }
 
 type ItemStatusType = {
-    complete: boolean | null
+    complete?: boolean
 }
 export const ItemStatus: FC<ItemStatusType> = ({ complete = false }) => (
     <Box sx={{

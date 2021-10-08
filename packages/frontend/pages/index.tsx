@@ -24,12 +24,12 @@ const Home: NextPage = () => (
         <HeroFooter text="Learn more" target="#benefits" inPage />
       </Hero>
     </Box>
-    <Box id="benefits" d="flex" flexFlow="column wrap" justifyContent="center" width="100%" minH="100vh" maxW="5xl">
+    <Box id="benefits" d="flex" flexFlow="column wrap" justifyContent="center" width="100%" minH="100vh" maxW="7xl">
       <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10} py={{ base: '75px', xl: 0 }}>
-        <Benefits type="fundee" />
-        <Benefits type="funder" />
+        <Benefits type="fundee" compact />
+        <Benefits type="funder" compact />
       </SimpleGrid>
-      <Box textAlign="center" justifyContent="center" d="flex" width="100%" sx={{
+      <Box textAlign="center" justifyContent="center" d="flex" mt={12} width="100%" sx={{
         d: { base: 'none', md: 'initial' },
         'a, button, div': {
           fontSize: { base: '40px', xl: '60px' },
