@@ -11,7 +11,7 @@ const Ventures: NextPage = () => (
     <Box d="flex" flexFlow="row wrap" alignItems="center" width="100%" height="auto">
       <Hero>
         <HeroHeading part1="Check the ventures..." part2="Back a venture today!" />
-        <HeroBody content="Eiusmod nisi incididunt anim incididunt nostrud laboris aliqua excepteur ut excepteur quis. Minim ut duis aute nostrud consequat esse cupidatat commodo cillum qui. Pariatur duis enim sint ea." />
+        <HeroBody content="Find the community that fits you best or view some of our past Ventures." />
       </Hero>
     </Box>
     <Box id="ventures" d="flex" flexFlow="column wrap" alignItems="center" width="100%" minH="100vh">

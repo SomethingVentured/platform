@@ -38,7 +38,7 @@ export const Benefits: React.FC<BenefitsType> = ({type, compact}) => (
                 {type === 'fundee' ? 'Get your project funded' : 'Help fund a project'}
               </Heading>
               <Text fontSize={{base: 'xs', lg: 'xl'}} color="gray.500">
-                Reprehenderit qui incididunt irure aliqua proident ex. Officia tempor ut esse duis reprehenderit veniam minim minim ut culpa. Amet fugiat adipisicing ipsum ea commodo velit incididunt commodo amet consequat.
+                Make a strong case for your vision and connect with supporters who want to help you change the world!
               </Text>
             </Box>
 
@@ -110,7 +110,7 @@ const fundingStats = [
     title: 'Invest',
     content: (
       <>
-        <StatsText>Help a new project</StatsText> get off the ground by buying tokens.
+        <StatsText>Help a new project</StatsText> get off the ground by providing liquidity.
       </>
     ),
   },

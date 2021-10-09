@@ -20,7 +20,7 @@ const About: NextPage = () =>
             <Box id="theTeam" d="flex" flexFlow="column wrap" justifyContent="center" width="auto" maxW="5xl">
                 <SimpleGrid columns={{ base: 1, lg: 2 }} spacing={10} py={{ base: '75px', xl: 0 }}>
                     <Box>Michiel</Box>
-                    <Box>Bagsy</Box>
+                    <Box>Bagholder McFomo III - An accomplished layabout, Bagsy strives to save the world one LP position at a time.</Box>
                     <Box>Fearless</Box>
                     <Box>Alok</Box>
                     <Box>lux</Box>
