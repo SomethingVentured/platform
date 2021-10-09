@@ -15,11 +15,13 @@
     "@chakra-ui/utils": "1.8.2",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11",
+    "@ethersproject/providers": "^5.4.5",
     "@portis/web3": "^4.0.5",
     "@uniswap/sdk": "^3.0.3",
     "@walletconnect/web3-provider": "^1.6.5",
     "authereum": "^0.1.14",
-    "eth-hooks": "^3.0.1",
+    "burner-provider": "^1.0.38",
+    "eth-hooks": "^2.3.9",
     "ethers": "^5.4.7",
     "formik": "^2.2.9",
     "framer-motion": "^4",
@@ -48,6 +50,7 @@
     "eslint-plugin-react": "^7.26.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-plugin-simple-import-sort": "^7.0.0",
+    "fs": "^0.0.1-security",
     "typescript": "4.4.3"
   }
 }

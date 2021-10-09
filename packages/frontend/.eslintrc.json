@@ -70,7 +70,7 @@
   },
   "overrides": [
     {
-      "files": ["*.jsx"],
+      "files": ["*.jsx", "*.js"],
       "parserOptions": {
         "project": ["./tsconfig.json"]
       }
@@ -104,5 +104,5 @@
       }
     }
   ],
-  "ignorePatterns": [".eslintrc.js"]
+  "ignorePatterns": [".eslintrc.js", "next.config.js"]
 }
