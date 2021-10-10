@@ -2,29 +2,18 @@ import { expect, assert } from "chai";
 import { ethers, waffle } from "hardhat";
 import { CrowdfundProxy, CrowdfundFactory, CrowdfundLogic } from "../ts-types/contracts";
 import { BigNumber } from "ethers";
-import { getLogic, getFactory, getProxy } from "./deploymentUtility";
+import { getLogic, getFactory, getProxy, delay, getDeadline } from "./deploymentUtility";
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { LogDescription } from "@ethersproject/abi";
 
-
-
 const { provider } = waffle;
-
-function delay(interval:number) {
-    return it('should delay', done => 
-    {
-        setTimeout(() => done(), interval)
-
-    }).timeout(interval + 100)
-}
 
 describe("Test staking and redeeming when successful", () => {
     const minimumLimit = "9000000000000000000"; // 9 ETH
-    const fundingPeriod = 15
-    const deadline = Math.round(Date.now() / 1000)+fundingPeriod;
+    const fundingPeriod = 25
     const opertorPercent = 5;
 
-    let fundingParams = [BigNumber.from(opertorPercent), BigNumber.from(minimumLimit), BigNumber.from(deadline)]
+    let fundingParams:BigNumber[]
     let naming = ["Name", "NM"]
     const poolId = "0x48656c6c6f20576f726c64210000000000000000000000000000000000000000";
     let logic:CrowdfundLogic, factory:CrowdfundFactory, proxy:CrowdfundProxy, callableProxy:CrowdfundLogic;
@@ -39,6 +28,7 @@ describe("Test staking and redeeming when successful", () => {
 
         logic = await getLogic();
         factory = await getFactory(logic.address);
+        fundingParams = [BigNumber.from(opertorPercent), BigNumber.from(minimumLimit), getDeadline(fundingPeriod)];
         [proxy, deploymentEvent, callableProxy] = await getProxy(factory, addresses, fundingParams, poolId, naming);
     })
 
@@ -87,11 +77,10 @@ describe("Test staking and redeeming when successful", () => {
 
 describe("Test staking and redeeming when failed", () => {
     const minimumLimit = "999000000000000000000"; // 999 ETH
-    const fundingPeriod = 20
-    const deadline = Math.round(Date.now() / 1000)+fundingPeriod;
+    const fundingPeriod = 35
     const opertorPercent = 5;
 
-    let fundingParams = [BigNumber.from(opertorPercent), BigNumber.from(minimumLimit), BigNumber.from(deadline)]
+    let fundingParams:BigNumber[]
     let naming = ["Name2", "NM2"]
     const poolId = "0x48656c6c6f20576f726c64210000000000000000000000000000000000000000";
 
@@ -105,11 +94,9 @@ describe("Test staking and redeeming when failed", () => {
         [address1, address2, staker1] = await ethers.getSigners();
         addresses = [address1.address, address2.address]
 
-        const deadline = Math.round(Date.now() / 1000)+fundingPeriod;
-        fundingParams[2] = BigNumber.from(deadline)
-
         logic = await getLogic();
         factory = await getFactory(logic.address);
+        fundingParams = [BigNumber.from(opertorPercent), BigNumber.from(minimumLimit), getDeadline(fundingPeriod)];
         [proxy, deploymentEvent, callableProxy] = await getProxy(factory, addresses, fundingParams, poolId, naming);
     })
     

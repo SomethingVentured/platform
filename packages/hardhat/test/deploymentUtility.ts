@@ -1,7 +1,19 @@
 import { ethers } from "hardhat";
-import { CrowdfundProxy, CrowdfundFactory, CrowdfundLogic } from "../ts-types/contracts";
+import { CrowdfundProxy, CrowdfundFactory, CrowdfundLogic, ExampleERC20Token } from "../ts-types/contracts";
 import { BigNumber } from "ethers";
 import { LogDescription } from "@ethersproject/abi";
+
+export function delay(interval:number) {
+    return it('should delay', done => 
+    {
+        setTimeout(() => done(), interval)
+
+    }).timeout(interval + 100)
+}
+
+export function getDeadline(duration:number) {
+    return BigNumber.from(Math.round(Date.now() / 1000)+duration);
+}
 
 export const getLogic = async () => {
     const CrowdfundLogic = await ethers.getContractFactory("CrowdfundLogic");
@@ -46,4 +58,14 @@ export const getProxy = async (factory: CrowdfundFactory, addresses:string[], fu
     const returnArr:returnType = [proxy, deploymentEvent, callableProxy]
 
     return returnArr
+}
+
+const deployToken = async() => {
+    const tokenFactory = await ethers.getContractFactory('ExampleERC20Token');
+    const token = await tokenFactory.deploy("Token", "TK");
+    return token
+}
+
+const deployPool = async() => {
+    
 }
