@@ -22,11 +22,11 @@ export const ConnectButton: FC = () => {
     <>
       {isConnected ? (
         <>
-          <Button variant="small" onClick={() => onClickDisconnect()}>Disconnect</Button>
+          <Button className="disconnectBtn" colorScheme="green" variant="small" onClick={() => onClickDisconnect()}>Disconnect</Button>
         </>
       ) : (
           <>
-            <Button isLoading={isConnecting} loadingText="Connecting..." variant="small" onClick={() => onClickConnect()}>
+            <Button className="connectBtn" colorScheme="green" isLoading={isConnecting} loadingText="Connecting..." variant="small" onClick={() => onClickConnect()}>
               {!isConnected && !isConnecting && 'Connect'}
           </Button>
           </>
