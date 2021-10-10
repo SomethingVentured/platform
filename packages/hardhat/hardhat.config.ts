@@ -4,7 +4,7 @@ import '@nomiclabs/hardhat-waffle';
 import '@nomiclabs/hardhat-solhint';
 import '@typechain/hardhat';
 
-// const { alchemyAPIKey, deployerPrivateKey } = require('./env.json');
+const { alchemyAPIKey, deployerPrivateKey } = require('./env.json');
 
 const config: HardhatUserConfig = {
   defaultNetwork: 'hardhat',
@@ -30,6 +30,15 @@ const config: HardhatUserConfig = {
   //     url: `https://eth-mainnet.alchemyapi.io/v2/${alchemyAPIKey}`,
   //     accounts: [deployerPrivateKey],
   //   },
+  //   kovan: {
+  //     url: `https://eth-kovan.alchemyapi.io/v2/${alchemyAPIKey}`,
+  //     accounts: [],
+  //   },
+  //   hardhat: {
+  //     forking: {
+  //       url: `https://eth-mainnet.alchemyapi.io/v2/${alchemyAPIKey}`
+  //     }
+  //   }
   // }
 };
 

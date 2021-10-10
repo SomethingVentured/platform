@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 import {CrowdfundStorage} from "./CrowdfundStorage.sol";
 import {ExampleERC20Token} from "./ERC20Token.sol";
 import "./BalancerVault.sol";
+import {ERC20} from "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
 /**
  * @title CrowdfundLogic
@@ -85,7 +86,7 @@ contract CrowdfundLogic is CrowdfundStorage {
      */
     function closeFunding() external onlyOperator nonReentrant {
         require(status == Status.FUNDING, "Crowdfund: Funding must be open");
-        require(fundingParams[2]>block.timestamp, "Crowdfund: Time limit has not expired");
+        require(fundingParams[2]<block.timestamp, "Crowdfund: Time limit has not expired");
         if (address(this).balance>=fundingParams[1]) {
             // Close funding status, move to tradable.
             status = Status.FUNDING_SUCCESS;
@@ -94,8 +95,15 @@ contract CrowdfundLogic is CrowdfundStorage {
             // TODO: Implement logic to transfer funds to recepients
             addresses[0].transfer((address(this).balance*fundingParams[0])/100);
             // IVault vault = IVault(addresses[1]);
-            // IVault.JoinPoolRequest memory request = IVault.JoinPoolRequest([1], [1], '', true);
-            // vault.joinPool(poolId, address(this), address(this), request);
+            // ERC20 ercToken = ERC20(addresses[2]);
+            // IAsset[] memory assets;
+            // assets[0] = IAsset(addresses[2]);
+            // assets[1] = IAsset(address(0));
+            // uint256[] memory amounts;
+            // amounts[0] = ercToken.balanceOf(address(this));
+            // amounts[1] = address(this).balance;
+            // IVault.JoinPoolRequest memory request = IVault.JoinPoolRequest(assets, amounts, '', true);
+            // vault.joinPool{value:address(this).balance}(poolId, address(this), address(this), request);
         } else {
             status = Status.FUNDING_FAIL;
         }

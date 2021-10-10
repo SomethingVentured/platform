@@ -1,0 +1,31 @@
+{
+  "background_color": "#fff",
+  "display": "standalone",
+  "homepage_url": "https://somethingventured.eth",
+  "providedBy": { "name": "SomethingVentured", "url": "https://somethingventured.eth" },
+  "icons": [
+    {
+      "src": "/android-chrome-144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ],
+  "orientation": "portrait",
+  "name": "SomethingVentured",
+  "description": "Fund or get funding for your new venture on the SomethingVentured Protocol",
+  "iconPath": "./images/256x256_App_Icon.svg",
+  "short_name": "SomethingVentured",
+  "start_url": ".",
+  "theme_color": "#ffffff",
+  "skylink": "AQBTlVUdVT_qLqqA_4umNe8aiO6KxoGbfvWzEEk0OyvF7w"
+}
