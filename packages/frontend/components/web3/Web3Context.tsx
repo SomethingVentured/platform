@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions, @typescript-eslint/no-explicit-any, no-console */
 
+// import {  JsonRpcProvider } from '@ethersproject/providers'
 import WalletConnectProvider from '@walletconnect/web3-provider'
+// import { useExchangeEthPrice, useGasPrice, useUserAddress } from 'eth-hooks'
 import { ethers, providers } from 'ethers'
 import React, {
   createContext,
@@ -12,7 +14,9 @@ import React, {
 import Web3Modal from 'web3modal'
 
 import { CONFIG } from '../../config'
+// import { INFURA_ID } from '../../constants'
 import { clearWalletConnect } from '../../lib/auth'
+// import { useExchangePrice } from '../../lib/hooks'
 
 // const walletconnectKey = 'walletconnect';
 // const mobileLinkChoiceKey = 'WALLETCONNECT_DEEPLINK_CHOICE';
@@ -32,6 +36,8 @@ export type ConnectWeb3ContextType = {
   modalOpen: boolean
   svUserAddress: string | null
   users: Array<UserType> | null
+  // localProvider: any | null
+  // price: any | null
 }
 
 interface ConnectWeb3ProviderOptions {
@@ -49,7 +55,27 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
   const [isConnecting, setIsConnecting] = useState<boolean>(false)
   const [address, setAddress] = useState<string | null>(null)
   const [modalOpen] = useState(false)
+  // const [injectedProvider, setInjectedProvider] = useState()
 
+  // const mainnetProvider = new JsonRpcProvider(`https://speedy-nodes-nyc.moralis.io/${INFURA_ID}/eth/mainnet`)
+  // ( ⚠️ Getting "failed to meet quorum" errors? Check your INFURA_ID)
+
+  // // 🏠 Your local provider is usually pointed at your local blockchain
+  // const localProviderUrl = 'http://localhost:8545' // for xdai: https://dai.poa.network
+  // // as you deploy to other networks you can set REACT_APP_PROVIDER=https://dai.poa.network in packages/react-app/.env
+  // const localProviderUrlFromEnv = process.env.REACT_APP_PROVIDER ? process.env.REACT_APP_PROVIDER : localProviderUrl
+  // if(DEBUG) console.log('🏠 Connecting to provider:', localProviderUrlFromEnv)
+  // const localProvider = new JsonRpcProvider(localProviderUrlFromEnv)
+
+  // const price = useExchangePrice(mainnetProvider, 10000)
+
+  /* 🔥 this hook will get the price of Gas from ⛽️ EtherGasStation */
+  // const gasPrice = useGasPrice('fast')
+
+
+  // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
+  // const userProvider = useUserProvider(injectedProvider, localProvider)
+  // const address = useUserAddress(userProvider)
 
   const calledOnce = useRef<boolean>(false)
 
@@ -153,7 +179,9 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
         address,
         modalOpen,
         svUserAddress,
-        users
+        users,
+        // localProvider,
+        // price
       }}
     >
       {children}
@@ -170,7 +198,9 @@ export const ConnectWeb3Context = createContext<ConnectWeb3ContextType>({
   address: null,
   modalOpen: false,
   svUserAddress: null,
-  users: null
+  users: null,
+  // localProvider: null,
+  // price: null
 })
 
 const providerOptions = {
