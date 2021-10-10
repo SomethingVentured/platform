@@ -1,32 +1,16 @@
 import {
-    AspectRatio, Box, Button,
-    Drawer,
-    DrawerBody,
-    DrawerCloseButton,
-    DrawerContent,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerOverlay,
+    AspectRatio, Box, Heading,
     HStack,
     Image,
-    Modal,
-    ModalBody,
-    ModalCloseButton,
-    ModalContent,
-    ModalFooter,
-    ModalHeader,
-    ModalOverlay,
-    useDisclosure
-} from '@chakra-ui/react'
+    Text} from '@chakra-ui/react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import { FC, useRef } from 'react'
 
-import { Hero, HeroBody, HeroHeading } from '../../components'
+import { Hero, HeroCTA } from '../../components'
 import { Layout } from '../../components/Layout'
 // import Lend from '../../components/lend'
-import { highlightedProjects } from '../../components/projects'
-import { ProjectType } from '../../components/projects/Card'
+import { highlightedProjects, ThreeTierFunding } from '../../components/projects'
+import { FundingInfoItem,ProjectType } from '../../components/projects/Card'
 // import { useWeb3 } from '../../lib/hooks'
 
 
@@ -39,24 +23,44 @@ const VentureDetail: NextPage = () => {
 
     return (
         <Layout>
-            <Box d="flex" flexFlow="row wrap" alignItems="center" width="100%" height="auto">
+            <Box d="flex" flexFlow="column wrap" alignItems="center" width="100%" height="auto" sx={{
+                '.hero': {
+                    '& > .chakra-stack': {
+                        pb: 14
+                    }
+                }
+            }}>
                 <Hero>
                     {venture ? (
                         <>
                             <AspectRatio maxW="5xl" ratio={16 / 9}>
                                 <Image src={venture[0]?.image} />
                             </AspectRatio>
-                            <HeroHeading part1={venture[0]?.title} part2={`By ${venture[0]?.owner}`} />
-                            <HeroBody content={venture[0]?.description} />
+                            <Heading size="xl" mb={0}>
+                                {venture[0]?.title}
+                            </Heading>
+
+                            <Text fontSize="lg" mt={1}>{venture[0]?.description}</Text>
                             <HStack justify="center">
-                                <FundVentureModal venture={venture} />
-                                <FundingDrawer venture={venture} />
+                                <HeroCTA cta1Text="Fund this venture" cta1Url="#tiers" />
+                                {/* <FundingDrawer venture={venture} /> */}
+                            </HStack>
+
+                            <HStack borderTop="2px solid gold" justify="space-between" borderColor="yellow.700" align="flex-start" textAlign="left" spacing={0} pt={5} mb={5}>
+                                <FundingInfoItem value={`${venture[0]?.funding.pledged}`} itemName="Ξ pledged" />
+                                <FundingInfoItem value={`${venture[0]?.funding.fundedPercent}`} itemName="% funded" />
+                                <FundingInfoItem value="2" itemName="days to go" />
                             </HStack>
                         </>
                     ) : (
                         <Box>Not found</Box>
                     )}
                 </Hero>
+                <Box d="flex" flexFlow="column wrap" justifyContent="center" width="100%" maxW="3xl" height="auto">
+                    <Text mb="6">Est ullamco labore anim deserunt. Lorem anim culpa sit elit eiusmod incididunt. Ut magna commodo enim consectetur amet pariatur ea. Sit tempor duis consequat culpa ex ad officia sit eu. Eiusmod qui cupidatat culpa consequat do irure cupidatat Lorem aliquip ex esse voluptate. Consectetur elit eiusmod pariatur anim dolor qui id ipsum ullamco reprehenderit eiusmod culpa. Veniam voluptate ullamco nulla voluptate nulla commodo eiusmod ex Lorem cillum nisi eu voluptate enim.</Text>
+                    <Text>Est ullamco labore anim deserunt. Lorem anim culpa sit elit eiusmod incididunt. Ut magna commodo enim consectetur amet pariatur ea. Sit tempor duis consequat culpa ex ad officia sit eu. Eiusmod qui cupidatat culpa consequat do irure cupidatat Lorem aliquip ex esse voluptate. Consectetur elit eiusmod pariatur anim dolor qui id ipsum ullamco reprehenderit eiusmod culpa. Veniam voluptate ullamco nulla voluptate nulla commodo eiusmod ex Lorem cillum nisi eu voluptate enim.</Text>
+                </Box>
+                <ThreeTierFunding venture={venture} />
             </Box>
         </Layout>
     )
@@ -64,82 +68,5 @@ const VentureDetail: NextPage = () => {
 // eslint-disable-next-line import/no-default-export
 export default VentureDetail
 
-type VentureType = {
-    venture: Array<ProjectType>
-}
-export const FundVentureModal: FC<VentureType> = ({ venture }) => {
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    return (
-        <>
-            <Button colorScheme="green" onClick={onOpen}>Fund this venture (Modal style)</Button>
 
-            <Modal isOpen={isOpen} onClose={onClose} size="3xl" isCentered>
-                <ModalOverlay backgroundColor="rgba(39, 103, 73,0.9)" sx={{
-                    backdropFilter: 'blur(8px)',
-                }} />
-                <ModalContent sx={{
-                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.2) 50%, rgba(255,255,255,0.4) 100%)',
-                    boxShadow: '0 0 15px rgba(0,0,0,0.5)'
-                }}>
-                    <ModalHeader>Funding {venture[0]?.title}</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <Box>Text</Box>
-                    </ModalBody>
 
-                    <ModalFooter>
-                        <Button colorScheme="red" mr={3} onClick={onClose}>
-                            Close
-                        </Button>
-                        <Button colorScheme="green">Confirm</Button>
-                    </ModalFooter>
-                </ModalContent>
-            </Modal>
-        </>
-    )
-}
-
-export const FundingDrawer: FC<VentureType> = ({ venture }) => {
-    // const { selectedProvider, ethPrice } = useWeb3()
-    const { isOpen, onOpen, onClose } = useDisclosure()
-    const btnRef = useRef<HTMLButtonElement>(null)
-
-    return (
-        <>
-            <Button ref={btnRef} colorScheme="purple" onClick={onOpen}>
-                Fund this venture (Drawer style)
-            </Button>
-            <Drawer
-                isOpen={isOpen}
-                placement="right"
-                onClose={onClose}
-                finalFocusRef={btnRef}
-                colorScheme="green"
-            >
-                <DrawerOverlay backgroundColor="rgba(39, 103, 73,0.9)" sx={{
-                    backdropFilter: 'blur(8px)',
-                }} />
-                <DrawerContent pt={16} maxW="3xl" sx={{
-                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.9) 50%, rgba(255,255,255,0.7) 100%)',
-                    boxShadow: '0 0 15px rgba(0,0,0,0.5)'
-                }}>
-                    <DrawerCloseButton />
-                    <DrawerHeader>Funding {`${venture[0]?.title}`}</DrawerHeader>
-
-                    <DrawerBody>
-                        {/* <Lend
-                            selectedProvider={userProvider}
-                            ethPrice={price} /> */}
-                    </DrawerBody>
-
-                    <DrawerFooter>
-                        <Button variant="outline" colorScheme="red" mr={3} onClick={onClose}>
-                            Cancel
-                        </Button>
-                        <Button colorScheme="green">Confirm</Button>
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>
-        </>
-    )
-}
