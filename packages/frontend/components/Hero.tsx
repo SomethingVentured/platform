@@ -88,8 +88,8 @@ export const HeroCTA: FC<HeroCTAContentType> = ({
     )}
     <NextLink href={cta1Url ?? '#'}>
     <Button
-      colorScheme="yellow"
-      bg="yellow.800"
+      colorScheme={!cta2Text ? 'green' : 'yellow'}
+      bg={!cta2Text ? 'green.700' : 'yellow.800'}
       color="white"
       rounded="full"
       size="sm"
@@ -145,7 +145,7 @@ export const HeroCTA: FC<HeroCTAContentType> = ({
 type HeroFooterContentType = {
   text: string
   target: string
-  inPage?: boolean 
+  inPage?: boolean
 }
 
 export const HeroFooter: FC<HeroFooterContentType> = ({ text, target, inPage }) => (

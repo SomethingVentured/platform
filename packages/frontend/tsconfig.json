@@ -2,10 +2,7 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "esnext",
-    "lib": [
-      "dom",
-      "es2017"
-    ],
+    "lib": ["dom", "es2017"],
     "moduleResolution": "node",
     "allowJs": true,
     "skipLibCheck": true,
@@ -23,9 +20,7 @@
     "noEmit": true,
     "esModuleInterop": true,
     "paths": {
-      "@/*": [
-        "./*"
-      ]
+      "@/*": ["./*"]
     },
     "resolveJsonModule": true,
     "jsxImportSource": "@emotion/react"
@@ -33,14 +28,11 @@
   "include": [
     "**/*.ts",
     "**/*.tsx",
-    "./next-env.d.ts", 
-    "components/web3/Balance.jsx", 
-    "components/web3/Address.jsx", 
-    "components/web3/Account.jsx"  
+    "./next-env.d.ts",
+    "components/web3/Balance.jsx",
+    "components/web3/Address.jsx",
+    "components/web3/Account.jsx",
+    "./next.config.js",
   ],
-  "exclude": [
-    "out",
-    ".next",
-    "node_modules",
-  ]
+  "exclude": ["out", ".next", "node_modules"]
 }

@@ -38,6 +38,7 @@ export const highlightedProjects = [
   {
     id: 4201,
     title: 'BagsysBags',
+    slug: 'bagsys-bags',
     description:
       'Esse sint ut id fugiat adipisicing aliqua et. Commodo ipsum commodo cillum laborum. Laborum sit sint ipsum anim sint irure incididunt eu eiusmod consectetur quis mollit.',
     owner: 'BagsysBags',
@@ -53,6 +54,7 @@ export const highlightedProjects = [
   {
     id: 4202,
     title: 'FearNothing',
+    slug: 'fear-nothing',
     description:
       'Esse sint ut id fugiat adipisicing aliqua et. Commodo ipsum commodo cillum laborum. Laborum sit sint ipsum anim sint irure incididunt eu eiusmod consectetur quis mollit.',
     owner: 'Fearless',
@@ -68,6 +70,7 @@ export const highlightedProjects = [
   {
     id: 4203,
     title: 'LuxuryLemurs',
+    slug: 'luxury-lemurs',
     description:
       'Esse sint ut id fugiat adipisicing aliqua et. Commodo ipsum commodo cillum laborum. Laborum sit sint ipsum anim sint irure incididunt eu eiusmod consectetur quis mollit.',
     owner: 'lux',
