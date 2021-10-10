@@ -22,7 +22,7 @@
   ],
   "orientation": "portrait",
   "name": "SomethingVentured",
-  "description": "Fund or get funding on the SomethingVentured Protocol",
+  "description": "Fund or get funding for your new venture on the SomethingVentured Protocol",
   "iconPath": "./images/256x256_App_Icon.svg",
   "short_name": "SomethingVentured",
   "start_url": ".",
