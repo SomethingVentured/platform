@@ -2,7 +2,6 @@
 
 // import {  JsonRpcProvider } from '@ethersproject/providers'
 import WalletConnectProvider from '@walletconnect/web3-provider'
-// import { useExchangeEthPrice, useGasPrice, useUserAddress } from 'eth-hooks'
 import { ethers, providers } from 'ethers'
 import React, {
   createContext,
@@ -56,26 +55,6 @@ export function ConnectWeb3Provider({ children }: ConnectWeb3ProviderOptions) {
   const [address, setAddress] = useState<string | null>(null)
   const [modalOpen] = useState(false)
   // const [injectedProvider, setInjectedProvider] = useState()
-
-  // const mainnetProvider = new JsonRpcProvider(`https://speedy-nodes-nyc.moralis.io/${INFURA_ID}/eth/mainnet`)
-  // ( ⚠️ Getting "failed to meet quorum" errors? Check your INFURA_ID)
-
-  // // 🏠 Your local provider is usually pointed at your local blockchain
-  // const localProviderUrl = 'http://localhost:8545' // for xdai: https://dai.poa.network
-  // // as you deploy to other networks you can set REACT_APP_PROVIDER=https://dai.poa.network in packages/react-app/.env
-  // const localProviderUrlFromEnv = process.env.REACT_APP_PROVIDER ? process.env.REACT_APP_PROVIDER : localProviderUrl
-  // if(DEBUG) console.log('🏠 Connecting to provider:', localProviderUrlFromEnv)
-  // const localProvider = new JsonRpcProvider(localProviderUrlFromEnv)
-
-  // const price = useExchangePrice(mainnetProvider, 10000)
-
-  /* 🔥 this hook will get the price of Gas from ⛽️ EtherGasStation */
-  // const gasPrice = useGasPrice('fast')
-
-
-  // Use your injected provider from 🦊 Metamask or if you don't have it then instantly generate a 🔥 burner wallet.
-  // const userProvider = useUserProvider(injectedProvider, localProvider)
-  // const address = useUserAddress(userProvider)
 
   const calledOnce = useRef<boolean>(false)
 
@@ -203,9 +182,20 @@ export const ConnectWeb3Context = createContext<ConnectWeb3ContextType>({
   // price: null
 })
 
+const TestnetProvider = new WalletConnectProvider({
+  rpc: {
+    1: 'https://speedy-nodes-nyc.moralis.io/20c9b6450fe00e2111db97d6/eth/mainnet',
+    4: 'https://speedy-nodes-nyc.moralis.io/20c9b6450fe00e2111db97d6/eth/rinkeby',
+    137: 'https://speedy-nodes-nyc.moralis.io/20c9b6450fe00e2111db97d6/polygon/mainnet',
+    80001: 'https://speedy-nodes-nyc.moralis.io/$20c9b6450fe00e2111db97d6/polygon/mumbai',
+    42161: 'https://speedy-nodes-nyc.moralis.io/20c9b6450fe00e2111db97d6/arbitrum/mainnet',
+    421611: 'https://speedy-nodes-nyc.moralis.io/20c9b6450fe00e2111db97d6/arbitrum/testnet'
+  },
+})
+
 const providerOptions = {
   walletconnect: {
-    package: WalletConnectProvider,
+    package: TestnetProvider,
     options: {
       infuraId: CONFIG.infuraId
     }

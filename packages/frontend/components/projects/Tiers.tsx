@@ -31,6 +31,8 @@ import {
 import { FC, ReactNode, useState } from 'react'
 import { FaCheckCircle } from 'react-icons/fa'
 
+import { useWeb3 } from '../../lib/hooks'
+import { ConnectButton } from '../web3'
 import { ProjectType } from './Card'
 
 export function PriceWrapper({ children }: { children: ReactNode }) {
@@ -229,7 +231,12 @@ export const ThreeTierFunding = ({ venture }: { venture: Array<ProjectType> }) =
     </Box>
   )
 
-
+const modalStyles = {
+  '.connectBtn, .disconnectBtn': {
+    fontSize: '2xl',
+    color: 'gray.700'
+  }
+}
 
 type VentureType = {
   venture: Array<ProjectType>
@@ -238,6 +245,8 @@ type VentureType = {
 export const FundVentureModal: FC<VentureType> = ({ venture, tier }) => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [depositAmount, setDepositAmount] = useState<number | string>(0)
+  const {address} = useWeb3()
+
   let tierName = ''
   let tokenDrop = ''
   let ventDrop = ''
@@ -270,7 +279,7 @@ export const FundVentureModal: FC<VentureType> = ({ venture, tier }) => {
 
   return (
     <>
-      <Button colorScheme="green" onClick={onOpen}>Fund</Button>
+      <Button colorScheme="green" onClick={onOpen}>Select {tierName}</Button>
 
       <Modal isOpen={isOpen} onClose={onClose} size="4xl" isCentered>
         <ModalOverlay backgroundColor="rgba(39, 103, 73,0.9)" sx={{
@@ -286,7 +295,7 @@ export const FundVentureModal: FC<VentureType> = ({ venture, tier }) => {
             <Text fontSize="md" fontWeight="normal" color="gray.600" maxW="3xl">{venture[0]?.description}</Text>
           </ModalHeader>
           <ModalCloseButton />
-          <ModalBody>
+          <ModalBody sx={modalStyles}>
             <HStack columns={2} justify="space-between" align="flex-start">
               <VStack
                 align="start"
@@ -296,25 +305,33 @@ export const FundVentureModal: FC<VentureType> = ({ venture, tier }) => {
                   <Heading size="lg">Deposit</Heading>
                   <Text>If you&apos;re happy with the {tierName} tier and its rewards, enter the amount you wish to deposit and we will do the rest for you.</Text>
                 </Box>
-                <Box>
-                  <VStack flex="1">
-                    <FormControl id="title">
-                      <FormLabel>Deposit amount</FormLabel>
-                      <InputGroup width="100%">
-                        {/* eslint-disable-next-line */}
-                        <InputLeftAddon children="Ξ" />
-                        <NumberInput step={0.1} value={depositAmount} defaultValue={depositMin} min={depositMin} max={depositMax} onChange={(valueString) => setDepositAmount(valueString)} flex={1}
-                          keepWithinRange
-                          clampValueOnBlur={false}>
-                          <NumberInputField />
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
-                      </InputGroup>
-                      <Box pos="absolute" top={0} right={0}>{`$${(+depositAmount * 3600).toFixed(0)} ($3600/Ξ)`}</Box>
-                    </FormControl>
+                <Box width="100%" sx={{
+                  'button': {
+                    fontSize: '2xl'
+                  }
+                }}>
+                  <VStack flex="1" width="100%" align={!address ? 'center' : 'flex-start'}>
+                    {address ? (
+                      <FormControl id="title">
+                        <FormLabel>Deposit amount</FormLabel>
+                        <InputGroup width="100%">
+                          {/* eslint-disable-next-line */}
+                          <InputLeftAddon children="Ξ" />
+                          <NumberInput step={0.1} value={depositAmount} defaultValue={depositMin} min={depositMin} max={depositMax} onChange={(valueString) => setDepositAmount(valueString)} flex={1}
+                            keepWithinRange
+                            clampValueOnBlur={false}>
+                            <NumberInputField />
+                            <NumberInputStepper>
+                              <NumberIncrementStepper />
+                              <NumberDecrementStepper />
+                            </NumberInputStepper>
+                          </NumberInput>
+                        </InputGroup>
+                        <Box pos="absolute" top={0} right={0}>{`$${(+depositAmount * 3600).toFixed(0)} ($3600/Ξ)`}</Box>
+                      </FormControl>
+                    ) : (
+                        <ConnectButton />
+                    )}
                   </VStack>
                 </Box>
               </VStack>
@@ -350,11 +367,16 @@ export const FundVentureModal: FC<VentureType> = ({ venture, tier }) => {
             </HStack>
           </ModalBody>
 
-          <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={onClose}>
+          <ModalFooter sx={modalStyles}>
+              <Button colorScheme="red" mr={3} onClick={onClose}>
               Close
             </Button>
-            <Button colorScheme="green">Confirm</Button>
+            {address && (
+              <>
+              <Button colorScheme="green">Confirm</Button>
+              </>
+            )}
+
           </ModalFooter>
         </ModalContent>
       </Modal>
